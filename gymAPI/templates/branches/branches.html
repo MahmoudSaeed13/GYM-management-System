@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %} Branches {% endblock title %}
+{% block content %}
+<h1>branches page</h1>
+{% for b in branches %}   
+<div>
+    <h4>{{ b.name }}</h4>
+    <h4>{{ b.description }}</h4>
+    <h4>{{ b.phone }}</h4>
+    <h4>{{ b.address }}</h4>
+</div>
+{% endfor %}
+{% endblock content %}
