@@ -1,9 +1,7 @@
-from audioop import maxpp
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _    
 from django_extensions.db.models import TimeStampedModel
-from traitlets import default
 from users.utils import set_BMI
 
 
@@ -73,7 +71,7 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(TimeStampedModel,models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, primary_key=True)
     phone = models.CharField(_("Phone Number"),max_length=20, unique=True)
     age = models.IntegerField(_("Age"))
     weight = models.DecimalField(_("Weight"),max_digits=5, decimal_places=2)
