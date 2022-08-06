@@ -6,7 +6,6 @@ class Plan(TimeStampedModel, models.Model):
     name = models.fields.CharField(max_length=40)
     duration_months = models.fields.IntegerField()
     price = models.fields.FloatField()
-    pass
 
 
 class Subscription(TimeStampedModel, models.Model):
