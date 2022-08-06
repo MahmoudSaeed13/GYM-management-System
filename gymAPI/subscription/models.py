@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django_extensions.db.fields import ModificationDateTimeField
 from subscription.utils import set_subscription_end_date
 # Create your models here.
-class Plan(TimeStampedModel, models.Model):
+class Plan(TimeStampedModel):
     name = models.fields.CharField(_("Plan Name"),max_length=40)
     duration_months = models.fields.IntegerField(_("Plan Duratoin"))
     price = MoneyField(_("Plan Price"),max_digits=8, decimal_places=2, default_currency='USD')

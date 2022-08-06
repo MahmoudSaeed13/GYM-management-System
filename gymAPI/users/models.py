@@ -70,14 +70,14 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
         return f"{self.username}"
 
 
-class Profile(TimeStampedModel,models.Model):
+class Profile(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, primary_key=True)
     phone = models.CharField(_("Phone Number"),max_length=20, unique=True)
     age = models.IntegerField(_("Age"))
     weight = models.DecimalField(_("Weight"),max_digits=5, decimal_places=2)
     height = models.IntegerField(_("Height"))
     bmi = models.DecimalField(_('Body Mass Index(BMI)'),max_digits=4, decimal_places=2, null=True)
-    image = models.ImageField(upload_to="user/images", default="users/images/default-avatar.png")
+    image = models.ImageField(upload_to="users/images", default="users/images/default-avatar.png")
     gender = models.CharField(_("Gender"),max_length=10, choices=(('male', 'Male'),('female', 'Female')))
 
     def save(self, *args, **kwargs):

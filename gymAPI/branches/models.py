@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
-class Branch(TimeStampedModel, models.Model):
+class Branch(TimeStampedModel):
     name = models.CharField(_("Branch Name"),max_length=150)
     address = models.CharField(_("Branch Address"),max_length=150)
     description = models.TextField(_("Branch Description"))
@@ -14,7 +14,7 @@ class Branch(TimeStampedModel, models.Model):
     def __str__(self):
         return f"{self.name}"
 
-class BranchClass(TimeStampedModel, models.Model):
+class BranchClass(TimeStampedModel):
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE)
     branch_id = models.ForeignKey(Branch, on_delete=models.CASCADE)
     appointment = models.DateTimeField(_("Class Appointment"))

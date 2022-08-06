@@ -1,36 +1,22 @@
 from django.db import models
-from django.utils import timezone
-from django.core.validators import FileExtensionValidator
-from django.contrib.auth.models import AbstractUser
 from djmoney.models.fields import MoneyField
+from users.models import User
+from django_extensions.db.models import TimeStampedModel
+from django.utils.translation import gettext_lazy as _   
 
-
-# Create your models here.
-class User(AbstractUser): #to Delete#################<<<<<<<<<<<<<<<<<<<<----------------------
-    pass
- 
- 
-class Event(models.Model):
-    event_name = models.CharField(max_length=50, null=False)
-    description = models.TextField()
-    
-    # photo = models.ImageField(upload_to='events/', null=True, blank=True , default='static/icons/new_event.jpg' ,validators=[FileExtensionValidator(['svg', 'jpg', 'jpeg', 'png', 'gif' ])])
-   
-    photo = models.ImageField(null=True, blank=True ,validators=[FileExtensionValidator(['svg', 'jpg', 'jpeg', 'png', 'gif' ])])
-
-    num_of_participants = models.IntegerField(blank=True, null=True)
-    created_at = models.DateTimeField(default=timezone.now, auto_now_add=True)
-    starts_at = models.DateTimeField(blank=True, null=True)
-    ends_at = models.DateTimeField(blank=True, null=True)
-    price = MoneyField(max_digits=6, decimal_places=2, default_currency='EGP', null=True)
+class Event(TimeStampedModel):
+    name = models.CharField(_("Event Name"),max_length=50, null=False)
+    description = models.TextField(_("Event Description"))   
+    photo = models.ImageField(_("Event Image"),null=True, blank=True,upload_to="events/images")
+    capacity = models.IntegerField(_("Number of subscription"),blank=True, null=True)
+    start_date = models.DateTimeField(_("Event start time"),blank=True, null=True)
+    end_date = models.DateTimeField(_("Event start time"),blank=True, null=True)
+    price = MoneyField(_("Event fees"),max_digits=6, decimal_places=2, default_currency='EGP', null=True)
     
     def __str__(self):
-        return self.event
-    
-    class Meta:
-        ordering = ['created_at']
+        return self.name
     
 
-class EventParticipants(models.Model):
-    participant = models.ForeignKey(User, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+class EventParticipants(TimeStampedModel):
+    participant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="participants")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="events")

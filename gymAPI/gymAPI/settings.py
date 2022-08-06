@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'classes.apps.ClassesConfig',
     'branches.apps.BranchesConfig',
     'trainers.apps.TrainersConfig',
+    'events.apps.EventsConfig',
     'users.apps.UsersConfig',
     "subscription.apps.SubscriptionConfig",
     'rest_framework',
