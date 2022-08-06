@@ -51,9 +51,9 @@ INSTALLED_APPS = [
     'classes.apps.ClassesConfig',
     'branches.apps.BranchesConfig',
     'trainers.apps.TrainersConfig',
+    'users.apps.UsersConfig',
     'rest_framework',
     "djmoney",
-    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [

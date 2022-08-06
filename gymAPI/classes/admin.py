@@ -1,4 +1,7 @@
 from django.contrib import admin
-from . import models
+from classes.models import Class
 # Register your models here.
-admin.site.register(models.Class)
+class ClassAdmin(admin.ModelAdmin):
+    list_display = ("name", "description", "price", "created", "modified")
+    
+admin.site.register(Class, ClassAdmin)
