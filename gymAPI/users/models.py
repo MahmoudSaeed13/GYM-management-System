@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 from django.utils.translation import gettext_lazy as _    
 from django_extensions.db.models import TimeStampedModel
 from users.utils import set_BMI
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserManager(BaseUserManager):
     def create_user(self, name, email, username, password=None):
@@ -65,6 +65,13 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ["email", "name"]
 
     objects = UserManager()
+
+    def tokens(self):
+        token = RefreshToken.for_user(self)
+        return {
+            "refresh": str(token),
+            "access": str(token.access_token) 
+        }
 
     def __str__(self) -> str:
         return f"{self.username}"

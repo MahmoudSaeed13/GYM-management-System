@@ -1,13 +1,18 @@
-import imp
+from lib2to3.pgen2.parse import ParseError
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
 from rest_framework import status
 from users.api.serializers import UserSerializer
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.sites.shortcuts import get_current_site
 from users.tasks import send_activation_email
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.exceptions import ParseError
+from django.contrib.auth import authenticate
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 
 User = get_user_model()
 
@@ -33,3 +38,106 @@ class UserViewSet(GenericViewSet):
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+    @action(
+        methods=['GET'],
+        detail=False,
+        url_path='verify-email',
+        url_name='verify-email',
+        permission_classes=[AllowAny],
+    )
+    def verify_email(self, request):
+        obj = JWTAuthentication()
+        try:
+            validated_token = obj.get_validated_token(request.GET["token"])
+        except:
+            return Response(
+                    {"Token": "Token is invalid or expired"}, status=status.HTTP_400_BAD_REQUEST
+                )
+        user_id = validated_token["user_id"]
+        user = User.objects.get(id=user_id)
+
+        if not user.is_verified:
+            user.is_verified = True
+            user.save()
+            return Response(
+                {"email": "Email Successfully Activated"}, status=status.HTTP_200_OK
+            )
+        return Response(
+            {"email": "Your Email is Already Activated"}, status=status.HTTP_400_BAD_REQUEST
+        )
+
+    @action(
+        methods=['POST'],
+        detail=False,
+        url_path='resend-verify-email',
+        url_name='resend-verify-email',
+        permission_classes=[AllowAny],
+    )
+    def resend_verify_email(self, request):
+        email = request.data.get("email")
+        if not email:
+            raise ParseError("Email must be provided")
+
+        user = User.objects.filter(email=email).first()
+
+        if not user:
+            return Response(
+                {"email": "Email does not exist."}, status=status.HTTP_404_NOT_FOUND
+            )
+
+        if user.is_verified:
+            return Response(
+                {"email": "Your email address already activated."}, status=status.HTTP_400_BAD_REQUEST
+            )
+        current_site = get_current_site(request).domain
+        send_activation_email.delay(current_site, email)
+
+        return Response(
+                {"email": "Email sent"}, status=status.HTTP_200_OK
+            )
+
+    @action(
+        methods=['post'],
+        detail=False,
+        url_path='login',
+        url_name='login',
+        permission_classes=[AllowAny],
+    )
+    def login(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
+             
+        user = authenticate(username=username, password=password)
+        
+        if not user:
+            raise AuthenticationFailed("Invalid credintials, Please try again")
+        if not user.is_active:
+            raise AuthenticationFailed("Account is deactivated")
+        if not user.is_verified:  
+            raise AuthenticationFailed("Email is not verified")
+        
+        data = {
+            'username' : user.username,
+            'tokens' : user.tokens()
+            }
+
+        return Response (data, status=status.HTTP_200_OK)
+
+
+    @action(
+        methods=['post'],
+        detail=False,
+        url_path='logout',
+        url_name='logout',
+        permission_classes=[IsAuthenticated],
+    )
+    def logout(self, request):
+        refresh_token = request.data.get("refresh")
+        try:
+            RefreshToken(refresh_token).blacklist()
+        except TokenError:
+            return Response(
+                    {"Token": "Token is invalid or expired"}, status=status.HTTP_400_BAD_REQUEST
+                )
+        return Response(status=status.HTTP_204_NO_CONTENT)
