@@ -3,18 +3,18 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 from django.utils.translation import gettext_lazy as _    
 from django_extensions.db.models import TimeStampedModel
 from users.utils import set_BMI
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 class UserManager(BaseUserManager):
     def create_user(self, name, email, username, password=None):
         if not username:
-            raise TypeError("user must have username")
+            raise ValueError("user must have username")
         if not name:
-            raise TypeError("user must have name")
+            raise ValueError("user must have name")
         if not email:
-            raise TypeError("user must have email")
+            raise ValueError("user must have email")
         if not password:
-            raise TypeError("user must have password")
+            raise ValueError("user must have password")
 
         email = self.normalize_email(email=email)
         user = self.model(
@@ -29,13 +29,13 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, username, email, name, password=None):
         if not username:
-            raise TypeError("user must have username")
+            raise ValueError("user must have username")
         if not name:
-            raise TypeError("user must have name")
+            raise ValueError("user must have name")
         if not email:
-            raise TypeError("user must have email")
+            raise ValueError("user must have email")
         if not password:
-            raise TypeError("user must have password")
+            raise ValueError("user must have password")
 
         email = self.normalize_email(email=email)
         user = self.model(
@@ -66,7 +66,14 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
-    def __str__(self) -> str:
+    def tokens(self):
+        token = RefreshToken.for_user(self)
+        return {
+            "refresh": str(token),
+            "access": str(token.access_token) 
+        }
+
+    def __str__(self):
         return f"{self.username}"
 
 

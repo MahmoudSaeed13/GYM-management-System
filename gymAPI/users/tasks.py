@@ -1,5 +1,3 @@
-from email import message
-import json
 from django.urls import reverse
 from django.core.mail import send_mail
 from celery import shared_task
@@ -9,12 +7,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 @shared_task(bind=True)
 def send_activation_email(self, current_site, user_email):
-    print(current_site)
-    print(user_email)
 
     user = User.objects.get(email=user_email)
     token = RefreshToken.for_user(user).access_token
-    relative_link = reverse("user-register")
+    relative_link = reverse("user-verify-email")
 
     absurl = "http://" + current_site + relative_link + "?token=" + str(token)
     
