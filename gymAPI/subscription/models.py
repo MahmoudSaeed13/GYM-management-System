@@ -8,9 +8,9 @@ from subscription.utils import set_subscription_end_date
 
 # Create your models here.
 class Plan(TimeStampedModel):
-    name = models.fields.CharField(_("Plan Name"), max_length=40)
+    name = models.fields.CharField(_("Plan Name"), max_length=40, unique=True)
     duration_months = models.fields.IntegerField(_("Plan Duratoin"))
-    price = MoneyField(_("Plan Price"), max_digits=8, decimal_places=2, default_currency="USD")
+    price = MoneyField(_("Plan Price"), max_digits=8, decimal_places=2, default_currency="EGP")
 
     def __str__(self):
         return self.name

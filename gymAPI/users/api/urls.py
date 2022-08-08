@@ -6,7 +6,7 @@ from django.urls import path
 
 router = DefaultRouter()
 
-router.register('', UserViewSet, basename="user")
+router.register(r"", UserViewSet, basename="user")
 
 urlpatterns = [
     path("login/", LoginAPIView.as_view(), name="login"),
