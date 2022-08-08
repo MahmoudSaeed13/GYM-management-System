@@ -1,21 +1,18 @@
-from lib2to3.pgen2.parse import ParseError
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
 from rest_framework import status
-from users.api.serializers import UserSerializer
+from users.api.serializers import UserSerializer, LoginSerializer, LogoutSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.sites.shortcuts import get_current_site
 from users.tasks import send_activation_email
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import ParseError
-from django.contrib.auth import authenticate
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework.generics import GenericAPIView
+
 
 User = get_user_model()
-
 
 class UserViewSet(GenericViewSet):
     serializer_class = UserSerializer
@@ -97,47 +94,24 @@ class UserViewSet(GenericViewSet):
                 {"email": "Email sent"}, status=status.HTTP_200_OK
             )
 
-    @action(
-        methods=['post'],
-        detail=False,
-        url_path='login',
-        url_name='login',
-        permission_classes=[AllowAny],
-    )
-    def login(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
-             
-        user = authenticate(username=username, password=password)
-        
-        if not user:
-            raise AuthenticationFailed("Invalid credintials, Please try again")
-        if not user.is_active:
-            raise AuthenticationFailed("Account is deactivated")
-        if not user.is_verified:  
-            raise AuthenticationFailed("Email is not verified")
-        
-        data = {
-            'username' : user.username,
-            'tokens' : user.tokens()
-            }
 
-        return Response (data, status=status.HTTP_200_OK)
+class LoginAPIView(GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-    @action(
-        methods=['post'],
-        detail=False,
-        url_path='logout',
-        url_name='logout',
-        permission_classes=[IsAuthenticated],
-    )
-    def logout(self, request):
-        refresh_token = request.data.get("refresh")
-        try:
-            RefreshToken(refresh_token).blacklist()
-        except TokenError:
-            return Response(
-                    {"Token": "Token is invalid or expired"}, status=status.HTTP_400_BAD_REQUEST
-                )
+class LogoutAPIView(GenericAPIView):
+    serializer_class = LogoutSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
         return Response(status=status.HTTP_204_NO_CONTENT)
