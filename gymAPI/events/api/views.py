@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics
-from .serializers import EventSerializer
+from .serializers import EventSerializer, ParticipantSerializer
 from .. import models
 
 
@@ -15,6 +15,21 @@ class EventList(generics.ListCreateAPIView):
 class EventDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset=models.Event.objects.all()
     serializer_class=EventSerializer
+    
+
+class ParticipantList(generics.ListCreateAPIView):
+    queryset=models.Participant.objects.all()
+    serializer_class=ParticipantSerializer
+    
+class EventParticipantsList(generics.ListAPIView):
+    queryset=models.Participant.objects.all()
+    serializer_class=ParticipantSerializer
+    
+    def get_queryset(self):
+        event_id=self.kwargs['event_id']
+        event=models.Event.objects.get(pk=event_id)
+        return models.Participant.objects.filter(event=event)
+        
 
 
 

@@ -1,5 +1,7 @@
+from typing_extensions import Self
 from django.db import models
 from djmoney.models.fields import MoneyField
+import events
 from users.models import User
 from django_extensions.db.models import TimeStampedModel
 from django.utils.translation import gettext_lazy as _   
@@ -15,12 +17,17 @@ class Event(TimeStampedModel):
     end_date = models.DateTimeField(_("Event start time"),blank=True, null=True)
     price = MoneyField(_("Event fees"),max_digits=6, decimal_places=2, default_currency='EGP', null=True)
     
+    
     def __str__(self):
         return self.name
     
+    def event_participants(self):
+        event_participants=Participant.objects.filter(event=self).count()
+        return event_participants
+    
 
 
-class EventParticipants(TimeStampedModel):
+class Participant(TimeStampedModel):
     participant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="participants")
     event = models.ForeignKey(Event, on_delete=models.CASCADE, related_name="events")
     attend_status_choices = (
@@ -36,8 +43,7 @@ class EventParticipants(TimeStampedModel):
     def __str__(self):
         return str(self.participant)
     
-    def get_absolute_url(self):
-        return reverse_lazy('join_event_list')
+   
     
 
 
