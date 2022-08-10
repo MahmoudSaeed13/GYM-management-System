@@ -35,7 +35,7 @@ class Participant(TimeStampedModel):
         ('interested', 'Interested'),
         ('not_going', 'NOT Going'),
     )
-    attend_status = models.CharField(choices=attend_status_choices)
+    attend_status = models.CharField(max_length=50,choices=attend_status_choices)
     
     class Meta:
         unique_together = ['event', 'participant']
