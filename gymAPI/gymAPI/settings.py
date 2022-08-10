@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'trainers.apps.TrainersConfig',
     'events.apps.EventsConfig',
     'users.apps.UsersConfig',
-    "subscription.apps.SubscriptionConfig",
+    'subscription.apps.SubscriptionConfig',
     'rest_framework',
     "djmoney",
 ]
