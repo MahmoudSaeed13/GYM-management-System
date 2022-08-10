@@ -20,9 +20,11 @@ from django.conf import settings
 
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     path('api/users/', include('users.api.urls')),
     path('api/classes/', include('classes.api.urls')),
+    path("api/sub/", include("subscription.api.urls")),
     path('api/trainers/', include('trainers.api.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
