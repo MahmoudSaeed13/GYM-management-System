@@ -1,6 +1,6 @@
 from os import access
 from rest_framework import serializers
-from users.models import User
+from users.models import Profile, User
 from rest_framework.exceptions import ParseError
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
@@ -86,3 +86,10 @@ class LogoutSerializer(serializers.Serializer):
             RefreshToken(self.token).blacklist()
         except TokenError:
             self.fail('bad_token')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    class Meta:
+        model = Profile
+        fields = ["id", "user", "phone", "age", "weight", "height", "bmi", "image", "gender"]

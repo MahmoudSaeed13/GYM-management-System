@@ -3,19 +3,22 @@ from django.contrib.auth import get_user_model
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
 from rest_framework import status
-from users.api.serializers import UserSerializer, LoginSerializer, LogoutSerializer
+from users.api.serializers import ProfileSerializer, UserSerializer, LoginSerializer, LogoutSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.sites.shortcuts import get_current_site
+from users.permissions import IsProfileOwner
 from users.tasks import send_activation_email
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import ParseError
 from rest_framework.generics import GenericAPIView
-
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin
+from users.models import Profile
 
 User = get_user_model()
 
-class UserViewSet(GenericViewSet):
+class UserViewSet(RetrieveModelMixin, GenericViewSet):
     serializer_class = UserSerializer
+    queryset = User.objects.all()
 
     @action(
         methods=['POST'],
@@ -29,8 +32,11 @@ class UserViewSet(GenericViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save() 
 
-        current_site = get_current_site(request).domain
+        # create user profile automatically when user register
+        user = User.objects.get(username=request.data["username"])
+        Profile.objects.create(user=user)
 
+        current_site = get_current_site(request).domain
         send_activation_email.delay(current_site, serializer.data['email'])
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -115,3 +121,19 @@ class LogoutAPIView(GenericAPIView):
         serializer.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class UserProfileAPIView(
+        RetrieveModelMixin, 
+        UpdateModelMixin,
+        ListModelMixin, 
+        GenericViewSet
+        ):
+    """
+        All users even if not logged in, will be able to see all 
+        profiles and retrive specific profile, only profile owners
+        who are logged in will be able to edit their profile.    
+    """
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsProfileOwner,]
