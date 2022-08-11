@@ -1,12 +1,12 @@
-from os import access
 from rest_framework import serializers
 from users.models import Profile, User
 from rest_framework.exceptions import ParseError
 from django.contrib.auth import authenticate
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
-
-
+import os
+from users.google import Google
+from users.social_auth_utils import register_social_user
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=225, min_length=8)
     name = serializers.CharField(max_length=155, min_length=8)
@@ -93,3 +93,30 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ["id", "user", "phone", "age", "weight", "height", "bmi", "image", "gender"]
+
+class GoogleSerializer(serializers.Serializer):
+    auth_token = serializers.CharField()
+    def validate_auth_token(self, auth_token):
+        user_data = Google.validate(auth_token)
+        try:
+            user_data['sub']
+        except:
+            raise serializers.ValidationError(
+                "Token is invalid or expired, please try to log in again"
+            )
+        
+        if user_data['aud'] != os.environ.get("GOOGLE_CLIENT_ID"):
+            print(os.environ.get("GOOGLE_CLIENT_ID"))
+            raise AuthenticationFailed("Wrong credintials")
+
+        user_id = user_data["sub"]
+        email = user_data["email"]
+        name = user_data["name"]
+        provider = "google"
+        
+        return register_social_user(
+            provider = provider,
+            user_id = user_id,
+            email = email,
+            name = name
+        )

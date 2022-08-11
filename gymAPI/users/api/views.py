@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
 from rest_framework import status
-from users.api.serializers import ProfileSerializer, UserSerializer, LoginSerializer, LogoutSerializer
+from users.api.serializers import ProfileSerializer, UserSerializer, LoginSerializer, LogoutSerializer,GoogleSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.sites.shortcuts import get_current_site
 from users.permissions import IsProfileOwner
@@ -137,3 +137,12 @@ class UserProfileAPIView(
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsProfileOwner,]
+
+
+class GoogleSociaAuthView(GenericAPIView):
+    serializer_class = GoogleSerializer
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = ((serializer.validated_data)["auth_token"])
+        return Response(data, status=status.HTTP_200_OK)

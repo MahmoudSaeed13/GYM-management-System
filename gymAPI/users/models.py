@@ -50,6 +50,7 @@ class UserManager(BaseUserManager):
 
         return user
 
+AUTH_PROVIDERS = {'google':"google"}
 
 class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     name = models.CharField(_("User full name"),max_length=155)
@@ -59,7 +60,8 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     is_verified = models.BooleanField(_("Is user verified email"), default=False)
     is_active = models.BooleanField(_("Is user account activated"),default=True)
     is_staff = models.BooleanField(_("Is user a staff member"),default=False)
-    
+    auth_provider = models.CharField(max_length=255, null=True, default=AUTH_PROVIDERS.get("email"))
+
 
     USERNAME_FIELD = "username"
     REQUIRED_FIELDS = ["email", "name"]
