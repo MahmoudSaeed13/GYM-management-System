@@ -99,7 +99,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "gymmanagement",
-        "USER": "gymmanagement",
+        "USER": "mohamedshokr",
         "PASSWORD": "gymmanagement",
         "HOST": "localhost",
         "PORT": "5432",
