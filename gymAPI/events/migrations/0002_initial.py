@@ -11,16 +11,16 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("subscription", "0001_initial"),
+        ("events", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="subscription",
-            name="user_id",
+            model_name="eventparticipants",
+            name="participant",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name="subscriped_users",
+                related_name="participants",
                 to=settings.AUTH_USER_MODEL,
             ),
         ),

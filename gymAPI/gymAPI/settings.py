@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 import os
 
-import environ
+import environ 
 
 env = environ.Env()
 environ.Env.read_env()
@@ -111,6 +111,7 @@ REST_FRAMEWORK = {
     'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 } 
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -175,3 +176,4 @@ CELERY_TIMEZONE = 'UTC'
 CELERY_IMPORTS = [
     'users.tasks',
 ]
+
