@@ -28,7 +28,7 @@ class ClassCreate(APIView):
             
         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
         
-class ClassView(APIView):
+class ClassDetailView(APIView):
     permission_classes = [IsAuthenticated,]
     def get_object(self, pk):
         obj = get_object_or_404(Class, pk=pk)

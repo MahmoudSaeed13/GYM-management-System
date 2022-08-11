@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 
 
 # List or get all snd Create new Trainer
-class TraineresList(APIView):
+class TrainersListView(APIView):
     permission_classes = [IsAuthenticated,]
     def get(self, request):
         traineres = Trainer.objects.all()
