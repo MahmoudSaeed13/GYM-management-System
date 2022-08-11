@@ -171,3 +171,8 @@ CELERY_TIMEZONE = 'UTC'
 CELERY_IMPORTS = [
     'users.tasks',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
