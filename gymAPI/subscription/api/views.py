@@ -18,5 +18,5 @@ class PlanViewSet(viewsets.ModelViewSet):
         if self.action == "list" or self.action == "retrieve":
             permission_classes = [AllowAny]
         else:
-            permission_classes = [IsAdminUser]
+            permission_classes = [IsAuthenticated,IsAdminUser]
         return [permission() for permission in permission_classes]

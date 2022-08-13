@@ -9,13 +9,13 @@ from django.shortcuts import get_object_or_404
 
 # List or get all snd Create new Trainer
 class TrainersListView(APIView):
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [AllowAny,]
     def get(self, request):
         traineres = Trainer.objects.all()
         serializer = TrainerSerializer(traineres, many=True)
         return Response(serializer.data, status= status.HTTP_200_OK)
 
-class TrainerCreate(APIView):
+class TrainerCreateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     def post(self, request):
         newTrainer = request.data
@@ -26,8 +26,8 @@ class TrainerCreate(APIView):
             
         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
         
-class TrainerView(APIView):
-    permission_classes = [IsAuthenticated,]
+class TrainerDetailView(APIView):
+    permission_classes = [AllowAny,]
     def get_object(self, pk):
         obj = get_object_or_404(Trainer, pk=pk)
         return obj
@@ -37,7 +37,7 @@ class TrainerView(APIView):
         serializer = TrainerSerializer(myTrainer)
         return Response(serializer.data)
 
-class TrainerUpdate(APIView):
+class TrainerUpdateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     def get_object(self, pk):
         obj = get_object_or_404(Trainer, pk=pk)
@@ -50,7 +50,7 @@ class TrainerUpdate(APIView):
             return Response(serializer.data, status= status.HTTP_202_ACCEPTED)
         return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
 
-class TrainerDelete(APIView):
+class TrainerDeleteView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     def get_object(self, pk):
         obj = get_object_or_404(Trainer, pk=pk)

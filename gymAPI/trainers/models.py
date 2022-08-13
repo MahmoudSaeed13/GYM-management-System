@@ -18,7 +18,7 @@ class Trainer(TimeStampedModel, models.Model):
     image = models.ImageField(_("Trianer personal Image"), upload_to="user/images", default="users/images/default-avatar.png")
     experience = models.IntegerField(_("Trainer years of experince"))
     branch_id = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name="branches")
-    class_id = models.ForeignKey(Class, on_delete=models.CASCADE, related_name="classes")
+    class_id = models.ForeignKey(Class, on_delete=models.CASCADE, related_name="classes", null=True)
 
 
     def __str__(self):

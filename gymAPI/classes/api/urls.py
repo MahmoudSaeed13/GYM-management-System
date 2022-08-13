@@ -1,13 +1,9 @@
 from classes.api.views import *
-# from rest_framework.routers import DefaultRouter
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
 
+router.register('', ClassViewSet, basename="classes")
 
-urlpatterns = [
-    path('', ClassesList.as_view()),
-    path('create/', ClassCreate.as_view()),
-    path('class/<int:pk>', ClassDetailView.as_view()),
-    path('class/<int:pk>/update', ClassUpdate.as_view()),
-    path('class/<int:pk>/delete', ClassDelete.as_view()),
-]
+urlpatterns = router.urls

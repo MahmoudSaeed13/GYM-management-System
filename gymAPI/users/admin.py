@@ -31,9 +31,8 @@ class UserAdmin(admin.ModelAdmin):
             },
         ),
         (_("Important dates"), {"fields": ("last_login",)}),
-        (_("Auth Providers"), {"fields": ("auth_provider",)}),
     )
-    list_display = ("username", "name", "email", "is_superuser", "is_verified", "created", "modified")
+    list_display = ("username", "name", "email", "is_superuser", "is_verified", "created", "modified", "auth_provider")
     search_fields = ["name"]
 
 admin.site.register(User, UserAdmin)

@@ -1,12 +1,8 @@
-from typing_extensions import Self
 from django.db import models
 from djmoney.models.fields import MoneyField
-import events
 from users.models import User
 from django_extensions.db.models import TimeStampedModel
 from django.utils.translation import gettext_lazy as _   
-from django.urls import reverse_lazy
-
 
 class Event(TimeStampedModel):
     name = models.CharField(_("Event Name"),max_length=50, null=False)
@@ -19,7 +15,7 @@ class Event(TimeStampedModel):
     
     
     def __str__(self):
-        return self.name
+        return f"{self.name}"
     
     def event_participants(self):
         event_participants=Participant.objects.filter(event=self).count()

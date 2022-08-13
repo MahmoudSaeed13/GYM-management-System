@@ -1,3 +1,4 @@
+from enum import unique
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 from classes.models import Class
@@ -19,8 +20,8 @@ class BranchClass(TimeStampedModel):
     branch_id = models.ForeignKey(Branch, on_delete=models.CASCADE)
     appointment = models.DateTimeField(_("Class Appointment"))
 
+    class Meta:
+        unique_together = ["class_id", "branch_id"]
+        
     def __str__(self):
-        return f"{self.classes} in {self.branch} at {self.appointment}"
-
-
-
+        return f"{self.class_id} in {self.branch_id} at {self.appointment}"

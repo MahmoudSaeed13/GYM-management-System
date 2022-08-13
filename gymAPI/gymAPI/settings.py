@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'subscription.apps.SubscriptionConfig',
     'rest_framework',
     "djmoney",
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

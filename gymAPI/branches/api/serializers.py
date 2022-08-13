@@ -1,13 +1,22 @@
-from os import access
-from rest_frmework import serializers
-from branches.models import Branch
-from rest_framework.exceptions import ParseError
-from django.contrib.auth import authenticate
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework_simplejwt.tokens import RefreshToken, TokenError
+from rest_framework import serializers
+from branches.models import Branch, BranchClass
+from classes.models import Class
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        # fields = '_all_'
-        fields = ["name", "address", "description", "phone"]
+        fields = ["id", "name", "address", "description", "phone"]
+
+class BranchClassSerializer(serializers.ModelSerializer):
+    branch_id = serializers.CharField()
+    class_id = serializers.CharField()
+    class Meta:
+        model = BranchClass
+        fields = ["id","class_id", "branch_id", "appointment", "created"]
+
+    def create(self, validated_data):
+        return BranchClass.objects.create(
+            branch_id = Branch.objects.get(name=validated_data.get("branch_id")),
+            class_id = Class.objects.get(name=validated_data.get("class_id")),
+            appointment = validated_data.get("appointment")
+        )

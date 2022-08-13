@@ -3,7 +3,7 @@ from users.models import User
 import os
 from django.contrib.auth import authenticate
 import random
-
+from users.models import Profile
 
 def generate_username(name):
 
@@ -46,7 +46,9 @@ def register_social_user(provider, user_id, email, name):
         user.is_verified = True
         user.auth_provider = provider
         user.save()
-        print("password:", user.password)
+
+        Profile.objects.create(user=user)
+
         return {
             'username': user.username,
             'email': user.email,
