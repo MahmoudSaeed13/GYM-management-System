@@ -7,7 +7,7 @@ from branches.models import Branch, BranchClass
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.core.exceptions import ObjectDoesNotExist
-
+from rest_framework.generics import UpdateAPIView
 # List or get all snd Create new Class
 class BranchesListView(APIView):
     permission_classes = [AllowAny,]
@@ -21,7 +21,7 @@ class BranchCreateView(APIView):
     def post(self, request):
         newBranch = request.data
         serializer = BranchSerializer(data = newBranch)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status= status.HTTP_201_CREATED)
             
@@ -37,18 +37,10 @@ class BranchDetailView(APIView):
         serializer = BranchSerializer(myBranch)
         return Response(serializer.data)
 
-class BranchUpdateView(APIView):
+class BranchUpdateView(UpdateAPIView):
+    serializer_class = BranchSerializer
+    queryset = Branch.objects.all()
     permission_classes = [IsAuthenticated, IsAdminUser]
-    def get_object(self, pk):
-        obj = get_object_or_404(Branch, pk=pk)
-        return obj
-    def put(self, request, pk):
-        myBranch = self.get_object(pk=pk)        
-        serializer = BranchSerializer(myBranch, request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status= status.HTTP_202_ACCEPTED)
-        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
 
 class BranchDeleteView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]

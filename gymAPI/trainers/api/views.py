@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from trainers.api.serializers import TrainerSerializer
 from trainers.models import Trainer
 from django.shortcuts import get_object_or_404
-
+from rest_framework.generics import UpdateAPIView
 
 # List or get all snd Create new Trainer
 class TrainersListView(APIView):
@@ -20,7 +20,7 @@ class TrainerCreateView(APIView):
     def post(self, request):
         newTrainer = request.data
         serializer = TrainerSerializer(data = newTrainer)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status= status.HTTP_201_CREATED)
             
@@ -37,18 +37,11 @@ class TrainerDetailView(APIView):
         serializer = TrainerSerializer(myTrainer)
         return Response(serializer.data)
 
-class TrainerUpdateView(APIView):
+class TrainerUpdateView(UpdateAPIView):
+    serializer_class = TrainerSerializer
+    queryset = Trainer.objects.all()
     permission_classes = [IsAuthenticated, IsAdminUser]
-    def get_object(self, pk):
-        obj = get_object_or_404(Trainer, pk=pk)
-        return obj
-    def put(self, request, pk):
-        myTrainer = self.get_object(pk=pk)        
-        serializer = TrainerSerializer(myTrainer, request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status= status.HTTP_202_ACCEPTED)
-        return Response(serializer.data, status= status.HTTP_400_BAD_REQUEST)
+    
 
 class TrainerDeleteView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]

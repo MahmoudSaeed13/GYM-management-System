@@ -37,7 +37,7 @@ class Participant(TimeStampedModel):
         unique_together = ['event', 'participant']
 
     def __str__(self):
-        return str(self.participant)
+        return f"{self.participant}"
     
    
     

@@ -8,8 +8,8 @@ from django.utils.translation import gettext_lazy as _
 
 class Trainer(TimeStampedModel, models.Model):
     gen = [
-        ('MALE', 'male'),
-        ('FEMALE', 'female'),
+        ('male', 'Male'),
+        ('female', 'Female'),
     ]
     name = models.CharField(_("Trainer Name"),max_length=150)
     age = models.IntegerField(_("Trainer Age"))
