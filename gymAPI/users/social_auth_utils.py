@@ -42,6 +42,7 @@ def register_social_user(provider, user_id, email, name):
             "email"  :email,
             "password" : os.environ.get("SOCIAL_SECRET")
         }
+
         user = User.objects.create_user(**user)
         user.is_verified = True
         user.auth_provider = provider
