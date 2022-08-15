@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import axios from 'axios';
-const baseURL = 'http://127.0.0.1:8000/api';
+const baseUrl = 'http://127.0.0.1:8000/api';
+
 export default function Home() {
   const [trainerData, setTrainerData] = useState([]);
   const [planData, setPlanData] = useState([]);
@@ -163,7 +163,7 @@ export default function Home() {
                 <div className="row">
                   <div className="col-lg-4 col-md-6">
                     <div className="single-trainer-item">
-                      <img src="{trainerData.image}" />
+                      <img src="{trainerData.image}" alt="" />
                       <div className="trainer-text">
                         <h5>{trainerData.name}</h5>
                         <span>
@@ -212,37 +212,43 @@ export default function Home() {
 
       <section className="membership-section spad">
         <div className="container">
-          {trainerData.map(() => {
-            return (
-              <div>
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className="membership-item">
-                      <div className="mi-title">
-                        <h4>{planData.name}</h4>
-                        <div className="triangle"></div>
-                      </div>
-                      <h2 className="mi-price">
-                        {planData.price}
-                        <span> EGP</span>
-                      </h2>
-                      <ul>
-                        <li>
-                          <p>{planData.duration_months} Month</p>
-                        </li>
-                      </ul>
-                      <a
-                        href="http://172.20.196.180:3000/signup"
-                        className="primary-btn membership-btn"
-                      >
-                        Start Now
-                      </a>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="section-title">
+                <h2>MEMBERSHIP PLANS</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            {planData.map(() => {
+              return (
+                <div className="col-lg-4">
+                  <div className="membership-item">
+                    <div className="mi-title">
+                      <h4>{planData.name}</h4>
+                      <div className="triangle"></div>
                     </div>
+                    <h2 className="mi-price">
+                      {planData.price}
+                      <span> EGP</span>
+                    </h2>
+                    <ul>
+                      <li>
+                        <p>Duration</p>
+                        <span>12 {planData.duration_months} Month</span>
+                      </li>
+                    </ul>
+                    <a
+                      href="http://172.20.196.180:3000/signup"
+                      className="primary-btn membership-btn"
+                    >
+                      Start Now
+                    </a>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
 

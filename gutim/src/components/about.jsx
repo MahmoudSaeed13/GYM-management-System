@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-
 import axios from 'axios';
-const baseURL = 'http://127.0.0.1:8000/api';
+const baseUrl = 'http://127.0.0.1:8000/api';
+
 export default function About() {
   const [trainerData, setTrainerData] = useState([]);
   useEffect(() => {
@@ -68,6 +68,11 @@ export default function About() {
                   Wherever you are starting from, we’re by your side to help you
                   meet your health and fitness goals.
                 </p>
+                <img src="img/about-signature.png" alt="" />
+                <div className="at-author">
+                  <h4>Lettie Chavez</h4>
+                  <span>CEO - Founder</span>
+                </div>
               </div>
             </div>
           </div>
@@ -131,34 +136,30 @@ export default function About() {
         </div>
       </section>
 
-      <section className="trainer-section spad">
+      <section className="trainer-section about-trainer spad">
         <div className="container">
-          {trainerData.map(() => {
-            return (
-              <div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="section-title">
-                      <h2>EXPERT TRAINERS</h2>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-4 col-md-6">
-                    <div className="single-trainer-item">
-                      <img src="{trainerData.image}" />
-                      <div className="trainer-text">
-                        <h5>{trainerData.name}</h5>
-                        <span>
-                          {trainerData.experience} Years of Experience.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="section-title">
+                <h2>EXPERT TRAINERS</h2>
               </div>
-            );
-          })}
+            </div>
+          </div>
+          <div className="row">
+            {trainerData.map(() => {
+              return (
+                <div className="col-lg-4 col-md-6">
+                  <div className="single-trainer-item">
+                    <img src="{trainerData.image}" alt="" />
+                    <div className="trainer-text">
+                      <h5>{trainerData.name}</h5>
+                      <span>{trainerData.experience} Years of Experience.</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
     </React.Fragment>
