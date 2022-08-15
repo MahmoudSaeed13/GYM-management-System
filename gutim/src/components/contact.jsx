@@ -28,7 +28,7 @@ export default function Contact() {
 
       <div className="map">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24112.92132811736!2d-74.20651812810036!3d40.93514309648714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2fda38587e887%3A0xf03207815e338a0d!2sHaledon%2C%20NJ%2007508%2C%20USA!5e0!3m2!1sen!2sbd!4v1578120776078!5m2!1sen!2sbd"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27285.30437547654!2d29.994362657675627!3d31.257749913247157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5c52e0c4b1135%3A0x79b9f57984645d94!2sGold&#39;s%20Gym%20Elite%20San%20Stefano!5e0!3m2!1sar!2seg!4v1660570409480!5m2!1sar!2seg"
           title="map"
           height="612"
           style={{
@@ -52,7 +52,7 @@ export default function Contact() {
                     </div>
                     <div className="cw-text">
                       <h5>Our Location</h5>
-                      <p>60-49 Road 11378 New York</p>
+                      <p>7 San Stifano, Alexandria, Egypt</p>
                     </div>
                   </div>
                   <div className="ca-widget">
@@ -70,7 +70,7 @@ export default function Contact() {
                     </div>
                     <div className="cw-text">
                       <h5>Mail</h5>
-                      <p>hellocolorlib@ gmail.com</p>
+                      <p>gutimgym@gmail.com</p>
                     </div>
                   </div>
                 </div>

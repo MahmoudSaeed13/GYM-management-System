@@ -1,6 +1,27 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
+import axios from 'axios';
+const baseURL = 'http://127.0.0.1:8000/api';
 export default function Home() {
+  const [trainerData, setTrainerData] = useState([]);
+  const [planData, setPlanData] = useState([]);
+  useEffect(() => {
+    try {
+      axios.get(baseUrl + '/trainers/').then((res) => {
+        setTrainerData(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    try {
+      axios.get(baseUrl + '/sub/plan/').then((res) => {
+        setPlanData(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <React.Fragment>
       <section
@@ -14,14 +35,17 @@ export default function Home() {
             <div className="col-lg-8">
               <div className="hero-text">
                 <span>FITNESS ELEMENTS</span>
-                <h1>BMI CALCULATOR</h1>
+                <h1>Gutim. Gym Theory</h1>
                 <p>
-                  Gutim comes packed with the user-friendly BMI Calculator
-                  <br />
-                  shortcode which lets
+                  All gyms are not created equal. Ours fuse a broad range of
+                  high quality equipment with friendly, helpful staff and a
+                  culture of support and encouragement for all.
                 </p>
-                <a href="#!" className="primary-btn">
-                  Read More
+                <a
+                  href="http://172.20.196.180:3000/signup"
+                  className="primary-btn"
+                >
+                  Sign Up
                 </a>
               </div>
             </div>
@@ -47,18 +71,21 @@ export default function Home() {
               <div className="about-text">
                 <h2>Story About Us</h2>
                 <p className="first-para">
-                  Lorem ipsum proin gravida nibh vel velit auctor aliquet.
-                  Aenean pretium sollicitudin, nascetur auci elit consequat
-                  ipsutissem niuis sed odio sit amet nibh vulputate cursus a
-                  amet.
+                  <strong>
+                    Our clubs are well equipped, conveniently situated and home
+                    to some of the friendliest faces in the fitness industry.
+                  </strong>
                 </p>
                 <p className="second-para">
-                  Etiam rhoncus. Maecenas tempus, tellus eget condimentum
-                  rhoncus, gravida quam semper libero sit amet. Etiam rhoncus.
-                  Maecenas tempus, tellus eget condimentum rhoncus, gravida quam
-                  semper libero sit amet.
+                  We will always try to make every individual that makes up our
+                  diverse membership feel right at home when using our cubs.
+                  Wherever you are starting from, we’re by your side to help you
+                  meet your health and fitness goals.
                 </p>
-                <a href="#!" className="primary-btn">
+                <a
+                  href="http://172.20.196.180:3000/about"
+                  className="primary-btn"
+                >
                   Read More
                 </a>
               </div>
@@ -83,16 +110,16 @@ export default function Home() {
                       <img src="img/services/service-icon-1.png" alt="" />
                       <h4>Strategies</h4>
                       <p>
-                        Aenean massa. Cum sociis Theme et natoque penatibus et
-                        magnis dis part urient montes.
+                        We help every one of our members to be the best they can
+                        possibly be, inside and out.
                       </p>
                     </div>
                     <div className="services-item bg-gray pd-b">
                       <img src="img/services/service-icon-3.png" alt="" />
                       <h4>Workout</h4>
                       <p>
-                        Aenean massa. Cum sociis Theme et natoque penatibus et
-                        magnis dis part urient montes.
+                        An overall full body toning workout with a mixture of
+                        both body weight and resistance.
                       </p>
                     </div>
                   </div>
@@ -101,16 +128,16 @@ export default function Home() {
                       <img src="img/services/service-icon-2.png" alt="" />
                       <h4>Yoga</h4>
                       <p>
-                        Aenean massa. Cum sociis Theme et natoque penatibus et
-                        magnis dis part urient montes.
+                        A class that increases flexibility, mobility, posture
+                        and relaxes the mind
                       </p>
                     </div>
                     <div className="services-item pd-b">
                       <img src="img/services/service-icon-4.png" alt="" />
                       <h4>Weight Loss</h4>
                       <p>
-                        Aenean massa. Cum sociis Theme et natoque penatibus et
-                        magnis dis part urient montes.
+                        A high-intensity class using a mixture of treadmills and
+                        weights for a full-body workout.
                       </p>
                     </div>
                   </div>
@@ -123,96 +150,32 @@ export default function Home() {
 
       <section className="trainer-section spad">
         <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title">
-                <h2>EXPERT TRAINERS</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-4 col-md-6">
-              <div className="single-trainer-item">
-                <img src="img/trainer/trainer-1.jpg" alt="" />
-                <div className="trainer-text">
-                  <h5>Patrick Cortez</h5>
-                  <span>Leader</span>
-                  <p>
-                    non numquam eius modi tempora incidunt ut labore et dolore
-                    magnam aliquam quaerat voluptatem.
-                  </p>
-                  <div className="trainer-social">
-                    <a href="#!">
-                      <i className="fa fa-facebook"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-instagram"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-twitter"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-pinterest"></i>
-                    </a>
+          {trainerData.map(() => {
+            return (
+              <div>
+                <div className="row">
+                  <div className="col-lg-12">
+                    <div className="section-title">
+                      <h2>EXPERT TRAINERS</h2>
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-4 col-md-6">
+                    <div className="single-trainer-item">
+                      <img src="{trainerData.image}" />
+                      <div className="trainer-text">
+                        <h5>{trainerData.name}</h5>
+                        <span>
+                          {trainerData.experience} Years of Experience.
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-trainer-item">
-                <img src="img/trainer/trainer-2.jpg" alt="" />
-                <div className="trainer-text">
-                  <h5>Gregory Powers</h5>
-                  <span>Gym coach</span>
-                  <p>
-                    non numquam eius modi tempora incidunt ut labore et dolore
-                    magnam aliquam quaerat voluptatem.
-                  </p>
-                  <div className="trainer-social">
-                    <a href="#!">
-                      <i className="fa fa-facebook"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-instagram"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-twitter"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-pinterest"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-4 col-md-6">
-              <div className="single-trainer-item">
-                <img src="img/trainer/trainer-3.jpg" alt="" />
-                <div className="trainer-text">
-                  <h5>Walter Wagner</h5>
-                  <span>Dance trainer</span>
-                  <p>
-                    non numquam eius modi tempora incidunt ut labore et dolore
-                    magnam aliquam quaerat voluptatem.
-                  </p>
-                  <div className="trainer-social">
-                    <a href="#!">
-                      <i className="fa fa-facebook"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-instagram"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-twitter"></i>
-                    </a>
-                    <a href="#!">
-                      <i className="fa fa-pinterest"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
@@ -228,10 +191,14 @@ export default function Home() {
               <div className="banner-text">
                 <h2>Get training today</h2>
                 <p>
-                  Gimply dummy text of the printing and typesetting industry.
-                  Lorem Ipsum has been the industry’s standard.
+                  Are you passionate, personable, proactive and positive? Then
+                  you need to be part of a fitness family that shares those
+                  values.
                 </p>
-                <a href="#!" className="primary-btn banner-btn">
+                <a
+                  href="http://172.20.196.180:3000/contact"
+                  className="primary-btn banner-btn"
+                >
                   Contact Now
                 </a>
               </div>
@@ -245,111 +212,37 @@ export default function Home() {
 
       <section className="membership-section spad">
         <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="section-title">
-                <h2>MEMBERSHIP PLANS</h2>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-lg-4">
-              <div className="membership-item">
-                <div className="mi-title">
-                  <h4>Basic</h4>
-                  <div className="triangle"></div>
+          {trainerData.map(() => {
+            return (
+              <div>
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className="membership-item">
+                      <div className="mi-title">
+                        <h4>{planData.name}</h4>
+                        <div className="triangle"></div>
+                      </div>
+                      <h2 className="mi-price">
+                        {planData.price}
+                        <span> EGP</span>
+                      </h2>
+                      <ul>
+                        <li>
+                          <p>{planData.duration_months} Month</p>
+                        </li>
+                      </ul>
+                      <a
+                        href="http://172.20.196.180:3000/signup"
+                        className="primary-btn membership-btn"
+                      >
+                        Start Now
+                      </a>
+                    </div>
+                  </div>
                 </div>
-                <h2 className="mi-price">
-                  $17<span>/01 mo</span>
-                </h2>
-                <ul>
-                  <li>
-                    <p>Duration</p>
-                    <span>12 months</span>
-                  </li>
-                  <li>
-                    <p>Personal trainer</p>
-                    <span>00 person</span>
-                  </li>
-                  <li>
-                    <p>Amount of people</p>
-                    <span>01 person</span>
-                  </li>
-                  <li>
-                    <p>Number of visits</p>
-                    <span>Unlimited</span>
-                  </li>
-                </ul>
-                <a href="#!" className="primary-btn membership-btn">
-                  Start Now
-                </a>
               </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="membership-item">
-                <div className="mi-title">
-                  <h4>Standard</h4>
-                  <div className="triangle"></div>
-                </div>
-                <h2 className="mi-price">
-                  $57<span>/01 mo</span>
-                </h2>
-                <ul>
-                  <li>
-                    <p>Duration</p>
-                    <span>12 months</span>
-                  </li>
-                  <li>
-                    <p>Personal trainer</p>
-                    <span>01 person</span>
-                  </li>
-                  <li>
-                    <p>Amount of people</p>
-                    <span>01 person</span>
-                  </li>
-                  <li>
-                    <p>Number of visits</p>
-                    <span>Unlimited</span>
-                  </li>
-                </ul>
-                <a href="#!" className="primary-btn membership-btn">
-                  Start Now
-                </a>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="membership-item">
-                <div className="mi-title">
-                  <h4>Premium</h4>
-                  <div className="triangle"></div>
-                </div>
-                <h2 className="mi-price">
-                  $98<span>/01 mo</span>
-                </h2>
-                <ul>
-                  <li>
-                    <p>Duration</p>
-                    <span>12 months</span>
-                  </li>
-                  <li>
-                    <p>Personal trainer</p>
-                    <span>01 person</span>
-                  </li>
-                  <li>
-                    <p>Amount of people</p>
-                    <span>01 person</span>
-                  </li>
-                  <li>
-                    <p>Number of visits</p>
-                    <span>Unlimited</span>
-                  </li>
-                </ul>
-                <a href="#!" className="primary-btn membership-btn">
-                  Start Now
-                </a>
-              </div>
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
