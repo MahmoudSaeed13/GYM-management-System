@@ -1,7 +1,7 @@
 import React from 'react';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-const baseUrl ='http://127.0.0.1:8000/api';
+const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Classes() {
   const [classData, setClassData] = useState([]);
@@ -86,7 +86,7 @@ export default function Classes() {
           </div>
         </div>
       </section>
-      
+
       <section className="classes-section classes-page spad">
         <div className="container">
           <div className="row">
@@ -96,29 +96,28 @@ export default function Classes() {
               </div>
             </div>
           </div>
-            {classData.map(()=>{
-              return(
-                <div>
-                  <div className="row">
-                    <div className="col-lg-4 col-md-6">
-                    <div
-                  className="single-class-item"
-                  style={{
-                    background: 'url(img/classes/classes-1.jpg)',
-                  }}
-                >
-                  <div className="si-text">
-                    <h4>{classData.name}</h4>
-                    <span>
-                      <i className="fa fa-money"></i>{classData.price}
-                    </span>
-                      </div>
-                     </div>
-                   </div>
-                 </div>
+          <div className="row">
+            {classData.map((cls, i) => {
+              return (
+                <div className="col-lg-4 col-md-6">
+                  <div
+                    className="single-class-item"
+                    style={{
+                      background: `url(img/classes/classes-${i + 1}.jpg)`,
+                    }}
+                  >
+                    <div className="si-text">
+                      <h4>{cls.name}</h4>
+                      <span>
+                        <i className="fa fa-money"></i>
+                        {cls.price}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               );
             })}
+          </div>
         </div>
       </section>
     </React.Fragment>
