@@ -1,6 +1,21 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
-export default function Gallery() {
+import axios from 'axios';
+const baseURL = 'http://127.0.0.1:8000/api';
+// /////////////////////note this is THE EVENTTTTTTTTT PAGE//////////////////
+
+export default function Events() {
+  const [eventData, setEventData] = useState([]);
+  useEffect(() => {
+    try {
+      axios.get(baseUrl + '/events/').then((res) => {
+        setEventData(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <React.Fragment>
       <section
@@ -13,71 +28,66 @@ export default function Gallery() {
           <div className="row">
             <div className="col-lg-12">
               <div className="breadcrumb-text">
-                <h2>Gallery</h2>
+                <h2>EVENTS</h2>
                 <div className="breadcrumb-option">
                   <a href="./index.html">
                     <i className="fa fa-home"></i> Home
                   </a>
-                  <span>Gallery</span>
+                  <span>Events</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      <div className="gallery-section spad">
+      <section className="membership-section spad" class="my-5">
         <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <ul className="gallery-controls">
-                <li className="active" data-filter=".all">
-                  all gallery
-                </li>
-                <li data-filter=".fitness">fitness</li>
-                <li data-filter=".coaching">coaching</li>
-                <li data-filter=".event">event</li>
-                <li data-filter=".other">other</li>
-              </ul>
-            </div>
-          </div>
-          <div className="row gallery-filter">
-            <div className="col-lg-6 mix all fitness">
-              <img src="img/gallery/gallery-1.jpg" alt="" />
-            </div>
-            <div className="col-lg-6">
-              <div className="row">
-                <div className="col-lg-6 mix all fitness coaching">
-                  <img src="img/gallery/gallery-2.jpg" alt="" />
-                </div>
-                <div className="col-lg-6">
-                  <div className="row">
-                    <div className="col-lg-12 mix all coaching">
-                      <img src="img/gallery/gallery-3.jpg" alt="" />
-                    </div>
-                    <div className="col-lg-12 mix all coaching">
-                      <img src="img/gallery/gallery-4.jpg" alt="" />
+          {eventData.map(() => {
+            return (
+              <div>
+                <div className="row">
+                  <div className="col-lg-4">
+                    <div className="membership-item">
+                      <div className="mi-title">
+                        <h4>{eventData.name}</h4>
+                        <div className="triangle"></div>
+                        <img src="{eventData.image}" />
+                      </div>
+                      <h2 className="mi-price">
+                        {eventData.price}
+                        <span>EGP</span>
+                      </h2>
+                      <ul>
+                        <li>
+                          <p>Duration</p>
+                          <span>
+                            {eventData.start_date} to {eventData.end_date}
+                          </span>
+                        </li>
+                        <li>
+                          <p>Description</p>
+                          <span>{eventData.description}</span>
+                        </li>
+                        <li>
+                          <p>Max. No of Attendants</p>
+                          <span>{eventData.capacity}</span>
+                        </li>
+                        <li>
+                          <p>Number of Participants</p>
+                          <span>{eventData.event_participants}</span>
+                        </li>
+                      </ul>
+                      <a href="#!" className="primary-btn membership-btn">
+                        Going
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-6">
-              <div className="row">
-                <div className="col-lg-6 mix all other">
-                  <img src="img/gallery/gallery-5.jpg" alt="" />
-                </div>
-                <div className="col-lg-6 mix all other">
-                  <img src="img/gallery/gallery-6.jpg" alt="" />
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-6 mix all event">
-              <img src="img/gallery/gallery-7.jpg" alt="" />
-            </div>
-          </div>
+            );
+          })}
         </div>
-      </div>
+      </section>
     </React.Fragment>
   );
 }

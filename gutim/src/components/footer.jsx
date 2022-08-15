@@ -19,8 +19,11 @@ export default function Footer() {
                   Complete the training sessions with us, surely you will be
                   happy
                 </p>
-                <a href="#!" className="primary-btn">
-                  Get Started
+                <a
+                  href="http://172.20.196.180:3000/signup"
+                  className="primary-btn"
+                >
+                  Join Us Now
                 </a>
               </div>
             </div>
@@ -32,13 +35,13 @@ export default function Footer() {
                 }}
               >
                 <span>contact us</span>
-                <h2>09 746 204</h2>
-                <p>
-                  If you trust us on your journey they dark sex does not
-                  disappoint you!
-                </p>
-                <a href="#!" className="primary-btn">
-                  Get Started
+                <h2>+20 3 746 204</h2>
+                <p>WE'D LOVE TO HEAR FROM YOU!</p>
+                <a
+                  href="http://172.20.196.180:3000/contact"
+                  className="primary-btn"
+                >
+                  Contact US
                 </a>
               </div>
             </div>
@@ -52,19 +55,19 @@ export default function Footer() {
             <div className="col-md-4">
               <div className="contact-option">
                 <span>Phone</span>
-                <p>(123) 118 9999 - (123) 118 9999</p>
+                <p>(203) 118 9999 - (203) 118 9999</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="contact-option">
                 <span>Address</span>
-                <p>72 Kangnam, 45 Opal Point Suite 391</p>
+                <p>7 San Stifano, Alexandria, Egypt</p>
               </div>
             </div>
             <div className="col-md-4">
               <div className="contact-option">
                 <span>Email</span>
-                <p>contactcompany@Gutim.com</p>
+                <p>contact@Gutim.com</p>
               </div>
             </div>
           </div>
@@ -86,36 +89,12 @@ export default function Footer() {
             </form>
           </div>
           <div className="copyright-text">
-            <ul>
-              <li>
-                <a href="#!">Term&Use</a>
-              </li>
-              <li>
-                <a href="#!">Privacy Policy</a>
-              </li>
-            </ul>
             <p>&copy;</p>
             <p>
               Copyright &copy;
               <script>document.write(new Date().getFullYear());</script>
-              All rights reserved | This template is made with
-              <i className="fa fa-heart" aria-hidden="true"></i> by
-              <a href="https://colorlib.com">Colorlib</a>
+              All rights reserved
             </p>
-            <div className="footer-social">
-              <a href="#!">
-                <i className="fa fa-facebook"></i>
-              </a>
-              <a href="#!">
-                <i className="fa fa-twitter"></i>
-              </a>
-              <a href="#!">
-                <i className="fa fa-instagram"></i>
-              </a>
-              <a href="#!">
-                <i className="fa fa-dribbble"></i>
-              </a>
-            </div>
           </div>
         </div>
       </footer>
