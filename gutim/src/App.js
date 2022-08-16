@@ -7,6 +7,8 @@ import Home from './components/home';
 import About from './components/about';
 import Classes from './components/classes';
 import Gallery from './components/gallery';
+import Events from './components/event';
+import Branches from './components/branch';
 import Contact from './components/contact';
 import Login from './components/login';
 import Signup from './components/signup';
@@ -25,6 +27,8 @@ function App() {
         <Route path="home" element={<Home />} />
         <Route path="classes" element={<Classes />} />
         <Route path="gallery" element={<Gallery />} />
+        <Route path="event" element={<Events />} />
+        <Route path="branch" element={<Branches />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />

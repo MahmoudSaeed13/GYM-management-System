@@ -27,7 +27,13 @@ export default function Header() {
                   <NavLink to="/gallery">Gallery</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/contact">Contacts</NavLink>
+                  <NavLink to="/event">Events</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/branch">Branches</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/contact">Contact Us</NavLink>
                 </li>
               </ul>
             </nav>
