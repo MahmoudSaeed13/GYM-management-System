@@ -38,38 +38,44 @@ export default function Branches() {
           </div>
         </div>
       </section>
+
       <section className="membership-section spad" class="my-5">
         <div className="container">
-          {branchData.map(() => {
-            return (
-              <div>
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className="membership-item">
-                      <div className="mi-title">
-                        <h4>{branchData.name}</h4>
-                        <div className="triangle"></div>
-                      </div>
-                      <h2 className="mi-price">
-                        <span><i class="fa-solid fa-phone"></i></span>
-                        {branchData.phone}
-                      </h2>
-                      <ul>
-                        <li>
-                          <p>Description</p>
-                          <span>{branchData.description}</span>
-                        </li>
-                        <li>
-                          <p>Address</p>
-                          <span>{branchData.address}</span>
-                        </li>
-                      </ul>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="section-title">
+                <h2>Branches</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            {branchData.map((branch) => {
+              return (
+                <div className="col-lg-4">
+                  <div className="membership-item">
+                    <div className="mi-title">
+                      <h4>{branch.name}</h4>
+                      <div className="triangle"></div>
                     </div>
+                    <ul>
+                      <li>
+                        <p>Phone</p>
+                        <span>{branch.phone}</span>
+                      </li>
+                      <li>
+                        <p>Description</p>
+                        <span>{branch.description}</span>
+                      </li>
+                      <li>
+                        <p>Address</p>
+                        <span>{branch.address}</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
     </React.Fragment>

@@ -4,12 +4,12 @@ import './App.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import Home from './components/home';
-import About from './components/about';
-import Classes from './components/classes';
-import Gallery from './components/gallery';
-import Events from './components/event';
 import Branches from './components/branch';
+import Classes from './components/classes';
+import Events from './components/event';
+import Gallery from './components/gallery';
 import Contact from './components/contact';
+import About from './components/about';
 import Login from './components/login';
 import Signup from './components/signup';
 // import Products from './components/products';
@@ -25,10 +25,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to={'home'} />} />
         <Route path="home" element={<Home />} />
-        <Route path="classes" element={<Classes />} />
-        <Route path="gallery" element={<Gallery />} />
-        <Route path="event" element={<Events />} />
         <Route path="branch" element={<Branches />} />
+        <Route path="classes" element={<Classes />} />
+        <Route path="event" element={<Events />} />
+        <Route path="gallery" element={<Gallery />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />

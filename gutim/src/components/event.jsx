@@ -38,52 +38,54 @@ export default function Events() {
           </div>
         </div>
       </section>
+
       <section className="membership-section spad" class="my-5">
         <div className="container">
-          {eventData.map(() => {
-            return (
-              <div>
-                <div className="row">
-                  <div className="col-lg-4">
-                    <div className="membership-item">
-                      <div className="mi-title">
-                        <h4>{eventData.name}</h4>
-                        <div className="triangle"></div>
-                        <img src="{eventData.image}" alt="" />
-                      </div>
-                      <h2 className="mi-price">
-                        {eventData.price}
-                        <span>EGP</span>
-                      </h2>
-                      <ul>
-                        <li>
-                          <p>Duration</p>
-                          <span>
-                            {eventData.start_date} to {eventData.end_date}
-                          </span>
-                        </li>
-                        <li>
-                          <p>Description</p>
-                          <span>{eventData.description}</span>
-                        </li>
-                        <li>
-                          <p>Max. No of Attendants</p>
-                          <span>{eventData.capacity}</span>
-                        </li>
-                        <li>
-                          <p>Number of Participants</p>
-                          <span>{eventData.event_participants}</span>
-                        </li>
-                      </ul>
-                      <a href="#!" className="primary-btn membership-btn">
-                        Going
-                      </a>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="section-title">
+                <h2>Events</h2>
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            {eventData.map((event) => {
+              return (
+                <div className="col-lg-4">
+                  <div className="membership-item">
+                    <div className="mi-title">
+                      <h4>{event.name}</h4>
+                      <div className="triangle"></div>
+                      <img src="{event.image}" alt="" />
                     </div>
+                    <h2 className="mi-price">
+                      {event.price}
+                      <span> EGP</span>
+                    </h2>
+                    <ul>
+                      <li>
+                        <p>Duration</p>
+                        <span>
+                          {event.start_date} to {event.end_date}
+                        </span>
+                      </li>
+                      <li>
+                        <p>Description</p>
+                        <span>{event.description}</span>
+                      </li>
+                      <li>
+                        <p>Max. No of Attendants</p>
+                        <span>{event.capacity}</span>
+                      </li>
+                    </ul>
+                    <a href="#!" className="primary-btn membership-btn">
+                      Going
+                    </a>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
     </React.Fragment>

@@ -150,32 +150,32 @@ export default function Home() {
 
       <section className="trainer-section spad">
         <div className="container">
-          {trainerData.map(() => {
-            return (
-              <div>
-                <div className="row">
-                  <div className="col-lg-12">
-                    <div className="section-title">
-                      <h2>EXPERT TRAINERS</h2>
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-lg-4 col-md-6">
-                    <div className="single-trainer-item">
-                      <img src="{trainerData.image}" alt="" />
-                      <div className="trainer-text">
-                        <h5>{trainerData.name}</h5>
-                        <span>
-                          {trainerData.experience} Years of Experience.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="section-title">
+                <h2>EXPERT TRAINERS</h2>
               </div>
-            );
-          })}
+            </div>
+          </div>
+          <div className="row">
+            {trainerData.map((trainer) => {
+              return (
+                <div className="col-lg-4 col-md-6">
+                  <div className="single-trainer-item">
+                    <img src="{trainer.image}" alt="" />
+                    <div className="trainer-text">
+                      <h5>{trainer.name}</h5>
+                      <span>{trainer.experience} Years of Experience.</span>
+                      <p>
+                        non numquam eius modi tempora incidunt ut labore et
+                        dolore magnam aliquam quaerat voluptatem.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -210,7 +210,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="membership-section spad">
+      <section className="membership-section spad mb-5">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -220,22 +220,22 @@ export default function Home() {
             </div>
           </div>
           <div className="row">
-            {planData.map(() => {
+            {planData.map((plan) => {
               return (
                 <div className="col-lg-4">
                   <div className="membership-item">
                     <div className="mi-title">
-                      <h4>{planData.name}</h4>
+                      <h4>{plan.name}</h4>
                       <div className="triangle"></div>
                     </div>
                     <h2 className="mi-price">
-                      {planData.price}
-                      <span> EGP</span>
+                      {Math.round(plan.price)}
+                      <span> EGP /mo</span>
                     </h2>
                     <ul>
                       <li>
                         <p>Duration</p>
-                        <span>12 {planData.duration_months} Month</span>
+                        <span>{plan.duration_months} Month</span>
                       </li>
                     </ul>
                     <a
@@ -248,51 +248,6 @@ export default function Home() {
                 </div>
               );
             })}
-          </div>
-        </div>
-      </section>
-
-      <section className="register-section spad">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8">
-              <div className="register-text">
-                <div className="section-title">
-                  <h2>Register Now</h2>
-                  <p>
-                    The First 7 Day Trial Is Completely Free With The Teacher
-                  </p>
-                </div>
-                <form action="#" className="register-form">
-                  <div className="row">
-                    <div className="col-lg-6">
-                      <label for="name">First Name</label>
-                      <input type="text" id="name" />
-                    </div>
-                    <div className="col-lg-6">
-                      <label for="email">Your email address</label>
-                      <input type="text" id="email" />
-                    </div>
-                    <div className="col-lg-6">
-                      <label for="last-name">Last Name</label>
-                      <input type="text" id="last-name" />
-                    </div>
-                    <div className="col-lg-6">
-                      <label for="mobile">Mobile No*</label>
-                      <input type="text" id="mobile" />
-                    </div>
-                  </div>
-                  <button type="submit" className="register-btn">
-                    Get Started
-                  </button>
-                </form>
-              </div>
-            </div>
-            <div className="col-lg-4">
-              <div className="register-pic">
-                <img src="img/register-pic.jpg" alt="" />
-              </div>
-            </div>
           </div>
         </div>
       </section>

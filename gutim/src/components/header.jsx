@@ -18,22 +18,22 @@ export default function Header() {
                   <NavLink to="/">Home</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/about">About</NavLink>
+                  <NavLink to="/branch">Branches</NavLink>
                 </li>
                 <li>
                   <NavLink to="/classes">Classes</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/gallery">Gallery</NavLink>
-                </li>
-                <li>
                   <NavLink to="/event">Events</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/branch">Branches</NavLink>
+                  <NavLink to="/gallery">Gallery</NavLink>
                 </li>
                 <li>
                   <NavLink to="/contact">Contact Us</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/about">About</NavLink>
                 </li>
               </ul>
             </nav>
