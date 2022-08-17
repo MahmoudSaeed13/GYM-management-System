@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "djmoney",
     "django_extensions",
     "corsheaders",
+    "rest_framework_simplejwt.token_blacklist",
 ]
 
 MIDDLEWARE = [
