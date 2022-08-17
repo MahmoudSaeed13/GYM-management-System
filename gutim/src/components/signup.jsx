@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { setAuth } from '../redux/reducers/authSlice';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Signup() {
-  const dispatch = useDispatch();
   const nav = useNavigate();
   const [error, setError] = useState({});
   const [state, setState] = useState({
@@ -74,8 +71,7 @@ export default function Signup() {
         .post(`${baseUrl}/users/register/`, state)
         .then((res) => console.log(res))
         .catch((e) => console.log(e));
-      // dispatch(setAuth(true));
-      // nav('/');
+      nav('/confirmation');
     }
   };
 
@@ -132,7 +128,7 @@ export default function Signup() {
               <input
                 type="text"
                 className="form-control"
-                id="floatingName"
+                id="floatingUsername"
                 placeholder="Jxhn"
                 onChange={getUsername}
               />

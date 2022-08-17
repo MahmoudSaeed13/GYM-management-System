@@ -12,11 +12,11 @@ import Contact from './components/contact';
 import About from './components/about';
 import Login from './components/login';
 import Signup from './components/signup';
+import Confirmation from './components/confirmation';
 // import Products from './components/products';
 // import ProductDetails from './components/productDetails';
 // import Cart from './components/cart';
 // import Checkout from './components/checkout';
-// import Confirmation from './components/confirmation';
 
 function App() {
   return (
@@ -33,11 +33,11 @@ function App() {
         <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="confirmation" element={<Confirmation />} />
         {/* <Route path="products" element={<Products />} />
         <Route path="products/:id" element={<ProductDetails />} />
         <Route path="cart" element={<Cart />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="confirmation" element={<Confirmation />} /> */}
+        <Route path="checkout" element={<Checkout />} /> */}
       </Routes>
       <Footer />
     </React.Fragment>

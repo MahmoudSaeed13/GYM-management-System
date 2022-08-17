@@ -30,12 +30,14 @@ export default function Login() {
     axios
       .post(`${baseUrl}/users/login/`, state)
       .then((res) => {
-        console.log(res.data);
+        let tokens = JSON.parse(res.data.tokens.replace(/'/g, '"'));
+        localStorage.setItem('refresh', tokens.refresh);
+        localStorage.setItem('access', tokens.access);
         setError({});
       })
       .catch((err) => setError({ ...err }));
-    // dispatch(setAuth(true));
-    // nav('/');
+    dispatch(setAuth(true));
+    nav('/');
   };
 
   return (
