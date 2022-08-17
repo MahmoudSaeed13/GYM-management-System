@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'users.apps.UsersConfig',
     'subscription.apps.SubscriptionConfig',
+    'rest_framework_simplejwt.token_blacklist',
     'rest_framework',
     "djmoney",
     'django_extensions',

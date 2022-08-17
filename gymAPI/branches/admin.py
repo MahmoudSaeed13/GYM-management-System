@@ -4,7 +4,7 @@ from branches.models import Branch, BranchClass
 
 # Register your models here.
 class BranchAdmin(admin.ModelAdmin):
-    list_display = ("name", "address", "description", "phone", "created", "modified")
+    list_display = ("name", "address", "phone", "created", "modified")
 
 admin.site.register(Branch, BranchAdmin)
 

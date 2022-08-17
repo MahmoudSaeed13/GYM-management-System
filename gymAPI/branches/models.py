@@ -9,7 +9,6 @@ from django.utils.translation import gettext_lazy as _
 class Branch(TimeStampedModel):
     name = models.CharField(_("Branch Name"),max_length=150)
     address = models.CharField(_("Branch Address"),max_length=150)
-    description = models.TextField(_("Branch Description"))
     phone = models.CharField(_("branch Phone"),max_length=11, unique=True)
 
     def __str__(self):

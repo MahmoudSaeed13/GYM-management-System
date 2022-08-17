@@ -36,8 +36,7 @@ class UserViewSet(RetrieveModelMixin, GenericViewSet):
         user = User.objects.get(username=request.data["username"])
         Profile.objects.create(user=user)
 
-        current_site = get_current_site(request).domain
-        send_activation_email.delay(current_site, serializer.data['email'])
+        send_activation_email.delay(serializer.data['email'])
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
