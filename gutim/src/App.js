@@ -4,17 +4,19 @@ import './App.css';
 import Header from './components/header';
 import Footer from './components/footer';
 import Home from './components/home';
-import About from './components/about';
+import Branches from './components/branch';
 import Classes from './components/classes';
+import Events from './components/event';
 import Gallery from './components/gallery';
 import Contact from './components/contact';
+import About from './components/about';
 import Login from './components/login';
 import Signup from './components/signup';
+import Confirmation from './components/confirmation';
 // import Products from './components/products';
 // import ProductDetails from './components/productDetails';
 // import Cart from './components/cart';
 // import Checkout from './components/checkout';
-// import Confirmation from './components/confirmation';
 
 function App() {
   return (
@@ -23,17 +25,19 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to={'home'} />} />
         <Route path="home" element={<Home />} />
+        <Route path="branch" element={<Branches />} />
         <Route path="classes" element={<Classes />} />
+        <Route path="event" element={<Events />} />
         <Route path="gallery" element={<Gallery />} />
         <Route path="about" element={<About />} />
         <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="confirmation" element={<Confirmation />} />
         {/* <Route path="products" element={<Products />} />
         <Route path="products/:id" element={<ProductDetails />} />
         <Route path="cart" element={<Cart />} />
-        <Route path="checkout" element={<Checkout />} />
-        <Route path="confirmation" element={<Confirmation />} /> */}
+        <Route path="checkout" element={<Checkout />} /> */}
       </Routes>
       <Footer />
     </React.Fragment>

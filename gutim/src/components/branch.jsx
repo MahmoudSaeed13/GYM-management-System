@@ -1,20 +1,19 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
-export default function Classes() {
-  const [classData, setClassData] = useState([]);
+export default function Branches() {
+  const [branchData, setBranchData] = useState([]);
   useEffect(() => {
     try {
-      axios.get(baseUrl + '/classes/').then((res) => {
-        setClassData(res.data);
+      axios.get(baseUrl + '/branch/').then((res) => {
+        setBranchData(res.data);
       });
     } catch (error) {
       console.log(error);
     }
   }, []);
-
   return (
     <React.Fragment>
       <section
@@ -27,12 +26,12 @@ export default function Classes() {
           <div className="row">
             <div className="col-lg-12">
               <div className="breadcrumb-text">
-                <h2>Classes</h2>
+                <h2>Branches</h2>
                 <div className="breadcrumb-option">
                   <a href="./index.html">
                     <i className="fa fa-home"></i> Home
                   </a>
-                  <span>Class</span>
+                  <span>Branches</span>
                 </div>
               </div>
             </div>
@@ -40,32 +39,38 @@ export default function Classes() {
         </div>
       </section>
 
-      <section className="classes-section classes-page spad">
+      <section className="membership-section spad" class="my-5">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
               <div className="section-title">
-                <h2>UNLIMITED CLASSES</h2>
+                <h2>Branches</h2>
               </div>
             </div>
           </div>
           <div className="row">
-            {classData.map((cls, i) => {
+            {branchData.map((branch) => {
               return (
-                <div className="col-lg-4 col-md-6">
-                  <div
-                    className="single-class-item"
-                    style={{
-                      background: `url(img/classes/classes-${i + 1}.jpg)`,
-                    }}
-                  >
-                    <div className="si-text">
-                      <h4>{cls.name}</h4>
-                      <span>
-                        <i className="fa fa-money"></i>
-                        {cls.price}
-                      </span>
+                <div className="col-lg-4">
+                  <div className="membership-item">
+                    <div className="mi-title">
+                      <h4>{branch.name}</h4>
+                      <div className="triangle"></div>
                     </div>
+                    <ul>
+                      <li>
+                        <p>Phone</p>
+                        <span>{branch.phone}</span>
+                      </li>
+                      <li>
+                        <p>Description</p>
+                        <span>{branch.description}</span>
+                      </li>
+                      <li>
+                        <p>Address</p>
+                        <span>{branch.address}</span>
+                      </li>
+                    </ul>
                   </div>
                 </div>
               );

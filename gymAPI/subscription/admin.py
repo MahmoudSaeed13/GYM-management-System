@@ -5,9 +5,12 @@ from subscription.models import Subscription, Plan
 class PlanAdmin(admin.ModelAdmin):
     list_display = ["name", "duration_months", "price", "created", "modified"]
 
+
 admin.site.register(Plan, PlanAdmin)
 
+
 class SubscriptionAdmin(admin.ModelAdmin):
+    fields = ("user_id", "plan_id")
     list_display = ["user_id", "start_date", "end_date", "plan_id", "modified"]
 
 

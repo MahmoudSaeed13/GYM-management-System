@@ -27,20 +27,7 @@ export default function Gallery() {
       </section>
 
       <div className="gallery-section spad">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <ul className="gallery-controls">
-                <li className="active" data-filter=".all">
-                  all gallery
-                </li>
-                <li data-filter=".fitness">fitness</li>
-                <li data-filter=".coaching">coaching</li>
-                <li data-filter=".event">event</li>
-                <li data-filter=".other">other</li>
-              </ul>
-            </div>
-          </div>
+      <div className="container">
           <div className="row gallery-filter">
             <div className="col-lg-6 mix all fitness">
               <img src="img/gallery/gallery-1.jpg" alt="" />
