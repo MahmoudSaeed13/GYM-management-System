@@ -2,6 +2,8 @@ import React from 'react';
 import Paypal from './paypal';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from './header';
+import Footer from './footer';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Classes() {
@@ -18,6 +20,7 @@ export default function Classes() {
 
   return (
     <React.Fragment>
+      <Header />
       <section
         className="breadcrumb-section"
         style={{
@@ -74,6 +77,7 @@ export default function Classes() {
           </div>
         </div>
       </section>
+      <Footer />
     </React.Fragment>
   );
 }

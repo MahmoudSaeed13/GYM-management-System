@@ -2,6 +2,8 @@ import React from 'react';
 import Paypal from './paypal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Header from './header';
+import Footer from './footer';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Events() {
@@ -17,6 +19,7 @@ export default function Events() {
   }, []);
   return (
     <React.Fragment>
+      <Header />
       <section
         className="breadcrumb-section"
         style={{
@@ -96,6 +99,7 @@ export default function Events() {
           </div>
         </div>
       </section>
+      <Footer />
     </React.Fragment>
   );
 }
