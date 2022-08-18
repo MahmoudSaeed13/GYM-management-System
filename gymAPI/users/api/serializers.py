@@ -11,9 +11,9 @@ class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=225, min_length=8)
     name = serializers.CharField(max_length=155, min_length=8)
     username = serializers.CharField(max_length=155, min_length=8)
+    
     password = serializers.CharField(max_length=86, min_length=6, write_only=True)
     password_confirmation = serializers.CharField(max_length=86, min_length=6, write_only=True)
-
     class Meta:
         model = User
         fields = ["name", "username", "email", "password", "password_confirmation"]
@@ -45,7 +45,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["username", "password", "tokens"]
+        fields = ["username", "password", "tokens", "is_staff"]
 
     def validate(self, attrs):
         username = attrs.get('username', '')
@@ -67,7 +67,8 @@ class LoginSerializer(serializers.ModelSerializer):
         
         return {
             "username": user.username,
-            "tokens" : user.tokens()
+            "tokens" : user.tokens(),
+            "is_staff": user.is_staff
         }
 
 class LogoutSerializer(serializers.Serializer):
