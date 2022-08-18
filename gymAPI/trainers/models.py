@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 class TrianerManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().select_related("branch_id", "class_id")
+        return super().get_queryset().select_related("branch_id", "class_id").order_by("id")
 
 class Trainer(TimeStampedModel, models.Model):
     gen = [

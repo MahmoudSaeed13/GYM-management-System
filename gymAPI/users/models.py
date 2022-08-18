@@ -79,6 +79,9 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
         return f"{self.username}"
 
 
+class ProfileManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related("user").order_by("id")
 class Profile(TimeStampedModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     phone = models.CharField(_("Phone Number"),max_length=20, unique=True, null=True)

@@ -7,26 +7,32 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
-
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 class EventListView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [AllowAny]
+    throttle_classes = [AnonRateThrottle]
 class EventDetailView(generics.RetrieveAPIView):    
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny]    
+    throttle_classes = [AnonRateThrottle]
 
 class EventCreateView(generics.CreateAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+    throttle_classes = [UserRateThrottle]
+
 
 
 class EventUpdateDestroyView(generics.UpdateAPIView, generics.DestroyAPIView):
     queryset = Event.objects.all()
     serializer_class=EventSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
+    throttle_classes = [UserRateThrottle]
+
 
 
 class ParticipantsViewSet(GenericViewSet):
@@ -38,6 +44,7 @@ class ParticipantsViewSet(GenericViewSet):
         url_path='subscribe',
         url_name='subscribe-event',
         permission_classes=[IsAuthenticated],
+        throttle_classes = [UserRateThrottle]
     )
     def subscribe_event(self, request):
 
@@ -52,6 +59,7 @@ class ParticipantsViewSet(GenericViewSet):
         url_path='unsubscribe',
         url_name='unsubscribe-event',
         permission_classes=[IsAuthenticated],
+        throttle_classes = [UserRateThrottle]
     )
     def unsubscribe_event(self, request):
         try:
@@ -71,6 +79,7 @@ class ParticipantsViewSet(GenericViewSet):
         url_path='status',
         url_name='update-attend-event',
         permission_classes=[IsAuthenticated],
+        throttle_classes = [UserRateThrottle]
     )
     def update_status(self, request):
         try:

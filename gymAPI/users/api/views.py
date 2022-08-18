@@ -13,6 +13,8 @@ from rest_framework.exceptions import ParseError
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin
 from users.models import Profile
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+
 
 User = get_user_model()
 
@@ -26,6 +28,7 @@ class UserViewSet(RetrieveModelMixin, GenericViewSet):
         url_path='register',
         url_name='register',
         permission_classes=[AllowAny],
+        throttle_classes=[AnonRateThrottle],
     )
     def register(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -47,6 +50,7 @@ class UserViewSet(RetrieveModelMixin, GenericViewSet):
         url_path='verify-email',
         url_name='verify-email',
         permission_classes=[AllowAny],
+        throttle_classes=[AnonRateThrottle],
     )
     def verify_email(self, request):
         obj = JWTAuthentication()
@@ -75,6 +79,7 @@ class UserViewSet(RetrieveModelMixin, GenericViewSet):
         url_path='resend-verify-email',
         url_name='resend-verify-email',
         permission_classes=[AllowAny],
+        throttle_classes=[AnonRateThrottle],
     )
     def resend_verify_email(self, request):
         email = request.data.get("email")
@@ -102,7 +107,7 @@ class UserViewSet(RetrieveModelMixin, GenericViewSet):
 
 class LoginAPIView(GenericAPIView):
     serializer_class = LoginSerializer
-
+    throttle_classes=[AnonRateThrottle]
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -113,6 +118,7 @@ class LoginAPIView(GenericAPIView):
 class LogoutAPIView(GenericAPIView):
     serializer_class = LogoutSerializer
     permission_classes = (IsAuthenticated,)
+    throttle_classes=[UserRateThrottle]
 
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
@@ -136,6 +142,8 @@ class UserProfileAPIView(
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsProfileOwner,]
+    throttle_classes=[AnonRateThrottle, UserRateThrottle]
+
 
 
 class GoogleSociaAuthView(GenericAPIView):

@@ -8,9 +8,11 @@ from django.shortcuts import get_object_or_404
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import UpdateAPIView
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 # List or get all snd Create new Class
 class BranchesListView(APIView):
     permission_classes = [AllowAny,]
+    throttle_classes = [AnonRateThrottle]
     def get(self, request):
         branches = Branch.objects.all()
         serializer = BranchSerializer(branches, many=True)
@@ -18,6 +20,7 @@ class BranchesListView(APIView):
 
 class BranchCreateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
+    throttle_classes = [UserRateThrottle]
     def post(self, request):
         newBranch = request.data
         serializer = BranchSerializer(data = newBranch)
@@ -29,6 +32,7 @@ class BranchCreateView(APIView):
 
 class BranchDetailView(APIView):
     permission_classes = [AllowAny,]
+    throttle_classes = [AnonRateThrottle]
     def get_object(self, pk):
         obj = get_object_or_404(Branch, pk=pk)
         return obj
@@ -41,9 +45,11 @@ class BranchUpdateView(UpdateAPIView):
     serializer_class = BranchSerializer
     queryset = Branch.objects.all()
     permission_classes = [IsAuthenticated, IsAdminUser]
+    throttle_classes = [UserRateThrottle]
 
 class BranchDeleteView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
+    throttle_classes = [UserRateThrottle]
     def get_object(self, pk):
         obj = get_object_or_404(Branch, pk=pk)
         return obj
@@ -54,6 +60,7 @@ class BranchDeleteView(APIView):
 
 class BranchClassListView(APIView):
     permission_classes = [AllowAny]
+    throttle_classes = [AnonRateThrottle]
     def get(self, request, pk):
         try:
             branch = get_object_or_404(Branch, pk=pk)
@@ -65,6 +72,7 @@ class BranchClassListView(APIView):
 
 class BranchClassCreateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
+    throttle_classes = [UserRateThrottle]
     def post(self, request):
         serializer = BranchClassSerializer(data=request.data)
         
@@ -76,7 +84,7 @@ class BranchClassCreateView(APIView):
 
 class BranchClassDeleteView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
-
+    throttle_classes = [UserRateThrottle]
     def delete(self, request, pk):
         try:
             branch_class = get_object_or_404(BranchClass, pk=pk)
