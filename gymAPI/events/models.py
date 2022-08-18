@@ -10,8 +10,8 @@ class Event(TimeStampedModel):
     description = models.TextField(_("Event Description"))
     photo = models.ImageField(_("Event Image"), null=True, blank=True, upload_to="events/images")
     capacity = models.IntegerField(_("Number of subscription"), blank=True, null=True)
-    start_date = models.DateField(_("Event start time"), blank=True, null=True)
-    end_date = models.DateField(_("Event start time"), blank=True, null=True)
+    start_date = models.DateTimeField(_("Event start time"), blank=True, null=True)
+    end_date = models.DateTimeField(_("Event start time"), blank=True, null=True)
     price = MoneyField(_("Event fees"), max_digits=6, decimal_places=2, default_currency="EGP", null=True)
 
     def __str__(self):

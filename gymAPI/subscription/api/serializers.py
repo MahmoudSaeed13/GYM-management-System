@@ -13,4 +13,4 @@ class SubscriptionSerializer(serializers.ModelSerializer):
 class PlanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plan
-        fields = ["name", "duration_months", "price"]
+        fields = ["id","name", "duration_months", "price"]

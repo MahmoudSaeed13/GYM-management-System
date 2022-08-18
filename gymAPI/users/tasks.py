@@ -11,7 +11,7 @@ def send_activation_email(self, user_email):
     user = User.objects.get(email=user_email)
     token = RefreshToken.for_user(user).access_token
 
-    absurl = "http://localhost:3000/" + "?token=" + str(token)
+    absurl = "http://localhost:3000/confirmation" + "?token=" + str(token)
     
     email_body = (
         "Hi "

@@ -6,6 +6,10 @@ from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
+class TrianerManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().select_related("branch_id", "class_id")
+
 class Trainer(TimeStampedModel, models.Model):
     gen = [
         ('male', 'Male'),
@@ -19,6 +23,8 @@ class Trainer(TimeStampedModel, models.Model):
     experience = models.IntegerField(_("Trainer years of experince"))
     branch_id = models.ForeignKey(Branch, on_delete=models.CASCADE, related_name="branches")
     class_id = models.ForeignKey(Class, on_delete=models.CASCADE, related_name="classes", null=True)
+
+    objects = TrianerManager()
 
 
     def __str__(self):
