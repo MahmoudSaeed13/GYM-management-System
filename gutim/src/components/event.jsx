@@ -87,7 +87,7 @@ export default function Events() {
                     </ul>
                     <p className="fs-3">Buy a Ticket</p>
                     <div className="w-75 mx-auto">
-                      <Paypal name={event.name} price={event.price} />
+                      <Paypal context={event} type="event" />
                     </div>
                   </div>
                 </div>

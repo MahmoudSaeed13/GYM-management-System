@@ -53,25 +53,6 @@ export default function Classes() {
           <div className="row">
             {classData.map((cls, i) => {
               return (
-                // <div className="col-lg-4 col-md-6">
-                //   <div
-                //     className="single-class-item"
-                //     style={{
-                //       background: `url(img/classes/classes-${i + 1}.jpg)`,
-                //     }}
-                //   >
-                //     <div className="si-text">
-                //       <h4>{cls.name}</h4>
-                //       <span>
-                //         <i className="fa fa-money"></i>
-                //         {cls.price}
-                //       </span>
-                //       <div className="w-75 mx-auto">
-                //         <Paypal name={cls.name} price={cls.price} />
-                //       </div>
-                //     </div>
-                //   </div>
-                // </div>
                 <div className="col-lg-4 col-md-6 mb-5">
                   <div className="single-trainer-item">
                     <img src={`img/classes/classes-${i + 1}.jpg`} alt="" />
@@ -83,7 +64,7 @@ export default function Classes() {
                       </span>
                       <p>{cls.description} </p>
                       <div className="w-75 mx-auto">
-                        <Paypal name={cls.name} price={cls.price} />
+                        <Paypal context={cls} type="class" />
                       </div>
                     </div>
                   </div>

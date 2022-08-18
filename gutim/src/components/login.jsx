@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setAuth } from '../redux/reducers/authSlice';
+import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
@@ -31,6 +32,7 @@ export default function Login() {
       .post(`${baseUrl}/users/login/`, state)
       .then((res) => {
         let tokens = JSON.parse(res.data.tokens.replace(/'/g, '"'));
+        localStorage.setItem('user_id', jwt_decode(tokens.refresh).user_id);
         localStorage.setItem('refresh', tokens.refresh);
         localStorage.setItem('access', tokens.access);
         setError({});

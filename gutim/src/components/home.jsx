@@ -252,7 +252,7 @@ export default function Home() {
                       Start Now
                     </a> */}
                     <div className="w-75 mx-auto">
-                      <Paypal name={plan.name} price={plan.price} />
+                      <Paypal context={plan} type="plan" />
                     </div>
                   </div>
                 </div>

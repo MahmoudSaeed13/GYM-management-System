@@ -1,6 +1,11 @@
+import axios from 'axios';
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Paypal(props) {
+  const auth = useSelector((state) => state.auth.value);
   useEffect(() => {
     window.paypal
       .Buttons({
@@ -10,7 +15,7 @@ export default function Paypal(props) {
             purchase_units: [
               {
                 amount: {
-                  value: props.price,
+                  value: props.context.price,
                 },
               },
             ],
@@ -20,6 +25,46 @@ export default function Paypal(props) {
           // This function captures the funds from the transaction.
           return actions.order.capture().then(function (details) {
             // This function shows a transaction success message to your buyer.
+            if (props.type === 'plan') {
+              axios.post(
+                `${baseUrl}/sub/subscription/`,
+                {
+                  user_id: localStorage.getItem('user_id'),
+                  plan_id: props.context.id,
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                  },
+                }
+              );
+            } else if (props.type === 'class') {
+              axios.post(
+                `${baseUrl}/events/subscribe/`,
+                {
+                  // data
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                  },
+                }
+              );
+            } else if (props.type === 'event') {
+              axios.post(
+                `${baseUrl}/events/subscribe/`,
+                {
+                  participant: localStorage.getItem('user_id'),
+                  event: props.context.name,
+                  attend_status: 'going',
+                },
+                {
+                  headers: {
+                    Authorization: `Bearer ${localStorage.getItem('access')}`,
+                  },
+                }
+              );
+            }
             alert('Transaction completed by ' + details.payer.name.given_name);
           });
         },
@@ -32,11 +77,16 @@ export default function Paypal(props) {
           console.log(err);
         },
       })
-      .render(`#${props.name}`);
+      .render(`#${props.context.name}`);
   }, []);
   return (
     <React.Fragment>
-      <div id={props.name}>Paypal</div>
+      {auth || (
+        <NavLink to="/login" className="btn btn-success">
+          Login To Countinue
+        </NavLink>
+      )}
+      {auth && <div id={props.context.name}>Paypal</div>}
     </React.Fragment>
   );
 }
