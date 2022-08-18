@@ -1,4 +1,5 @@
 import React from 'react';
+import Paypal from './paypal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
@@ -223,14 +224,20 @@ export default function Home() {
             {planData.map((plan) => {
               return (
                 <div className="col-lg-4">
-                  <div className="membership-item">
+                  <div
+                    className="membership-item"
+                    style={{
+                      height: '420px',
+                      overflow: 'hidden',
+                    }}
+                  >
                     <div className="mi-title">
                       <h4>{plan.name}</h4>
                       <div className="triangle"></div>
                     </div>
                     <h2 className="mi-price">
                       {Math.round(plan.price)}
-                      <span> EGP /mo</span>
+                      <span> USD /mo</span>
                     </h2>
                     <ul>
                       <li>
@@ -238,12 +245,15 @@ export default function Home() {
                         <span>{plan.duration_months} Month</span>
                       </li>
                     </ul>
-                    <a
+                    {/* <a
                       href="http://172.20.196.180:3000/signup"
                       className="primary-btn membership-btn"
                     >
                       Start Now
-                    </a>
+                    </a> */}
+                    <div className="w-75 mx-auto">
+                      <Paypal name={plan.name} price={plan.price} />
+                    </div>
                   </div>
                 </div>
               );
