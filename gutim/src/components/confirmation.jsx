@@ -1,8 +1,11 @@
 import React from 'react';
+import Footer from './footer';
+import Header from './header';
 
 export default function Confirmation() {
   return (
     <React.Fragment>
+      <Header />
       <section
         className="breadcrumb-section"
         style={{
@@ -35,6 +38,7 @@ export default function Confirmation() {
           <img src="/images/goodbye.jpeg" alt="" />
         </div>
       </div>
+      <Footer />
     </React.Fragment>
   );
 }

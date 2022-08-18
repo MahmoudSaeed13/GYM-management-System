@@ -1,8 +1,11 @@
 import React from 'react';
+import Footer from './footer';
+import Header from './header';
 
 export default function Gallery() {
   return (
     <React.Fragment>
+      <Header />
       <section
         className="breadcrumb-section"
         style={{
@@ -27,7 +30,7 @@ export default function Gallery() {
       </section>
 
       <div className="gallery-section spad">
-      <div className="container">
+        <div className="container">
           <div className="row gallery-filter">
             <div className="col-lg-6 mix all fitness">
               <img src="img/gallery/gallery-1.jpg" alt="" />
@@ -65,6 +68,7 @@ export default function Gallery() {
           </div>
         </div>
       </div>
+      <Footer />
     </React.Fragment>
   );
 }

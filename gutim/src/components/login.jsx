@@ -4,16 +4,18 @@ import { useNavigate } from 'react-router-dom';
 import { setAuth } from '../redux/reducers/authSlice';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
+import Header from './header';
+import Footer from './footer';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Login() {
+  const nav = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState({});
   const [state, setState] = useState({
     email: '',
     password: '',
   });
-  const nav = useNavigate();
   const getUsername = (e) => {
     setState({
       ...state,
@@ -44,6 +46,7 @@ export default function Login() {
 
   return (
     <React.Fragment>
+      <Header />
       <section
         className="breadcrumb-section"
         style={{
@@ -107,6 +110,7 @@ export default function Login() {
           </form>
         </main>
       </div>
+      <Footer />
     </React.Fragment>
   );
 }

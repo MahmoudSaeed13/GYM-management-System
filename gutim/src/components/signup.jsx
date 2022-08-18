@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Header from './header';
+import Footer from './footer';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Signup() {
@@ -77,6 +79,8 @@ export default function Signup() {
 
   return (
     <React.Fragment>
+      <Header />
+
       <section
         className="breadcrumb-section"
         style={{
@@ -169,6 +173,7 @@ export default function Signup() {
           </p>
         </main>
       </div>
+      <Footer />
     </React.Fragment>
   );
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Header from './header';
+import Footer from './footer';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function About() {
@@ -16,6 +18,7 @@ export default function About() {
   }, []);
   return (
     <React.Fragment>
+      <Header />
       <section
         className="breadcrumb-section"
         style={{
@@ -162,6 +165,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      <Footer />
     </React.Fragment>
   );
 }

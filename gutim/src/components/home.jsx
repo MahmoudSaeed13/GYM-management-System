@@ -2,6 +2,8 @@ import React from 'react';
 import Paypal from './paypal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Header from './header';
+import Footer from './footer';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Home() {
@@ -25,6 +27,7 @@ export default function Home() {
   }, []);
   return (
     <React.Fragment>
+      <Header />
       <section
         className="hero-section"
         style={{
@@ -245,12 +248,6 @@ export default function Home() {
                         <span>{plan.duration_months} Month</span>
                       </li>
                     </ul>
-                    {/* <a
-                      href="http://172.20.196.180:3000/signup"
-                      className="primary-btn membership-btn"
-                    >
-                      Start Now
-                    </a> */}
                     <div className="w-75 mx-auto">
                       <Paypal context={plan} type="plan" />
                     </div>
@@ -261,6 +258,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <Footer />
     </React.Fragment>
   );
 }
