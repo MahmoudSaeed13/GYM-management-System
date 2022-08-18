@@ -1,4 +1,5 @@
 import React from 'react';
+import Paypal from './paypal';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
@@ -40,7 +41,7 @@ export default function Classes() {
         </div>
       </section>
 
-      <section className="classes-section classes-page spad">
+      <section className="classes-section classes-page spad" class="my-5">
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
@@ -52,19 +53,19 @@ export default function Classes() {
           <div className="row">
             {classData.map((cls, i) => {
               return (
-                <div className="col-lg-4 col-md-6">
-                  <div
-                    className="single-class-item"
-                    style={{
-                      background: `url(img/classes/classes-${i + 1}.jpg)`,
-                    }}
-                  >
-                    <div className="si-text">
-                      <h4>{cls.name}</h4>
+                <div className="col-lg-4 col-md-6 mb-5">
+                  <div className="single-trainer-item">
+                    <img src={`img/classes/classes-${i + 1}.jpg`} alt="" />
+                    <div className="trainer-text">
+                      <h5>{cls.name}</h5>
                       <span>
-                        <i className="fa fa-money"></i>
-                        {cls.price}
+                        <i className="fa fa-money"></i> {cls.price}
+                        USD /mo
                       </span>
+                      <p>{cls.description} </p>
+                      <div className="w-75 mx-auto">
+                        <Paypal context={cls} type="class" />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -31,7 +31,7 @@ export default function Header() {
         .catch((err) => {
           console.log(err);
         });
-    }, 240000);
+    }, 120000);
   }
   const logout = () => {
     axios
@@ -49,6 +49,7 @@ export default function Header() {
       .then((res) => {
         localStorage.removeItem('refresh');
         localStorage.removeItem('access');
+        localStorage.removeItem('user_id');
         dispatch(setAuth(false));
         console.log(res);
       })

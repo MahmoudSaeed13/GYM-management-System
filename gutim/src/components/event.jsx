@@ -1,4 +1,5 @@
 import React from 'react';
+import Paypal from './paypal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
@@ -52,7 +53,13 @@ export default function Events() {
             {eventData.map((event) => {
               return (
                 <div className="col-lg-4">
-                  <div className="membership-item">
+                  <div
+                    className="membership-item"
+                    style={{
+                      height: '610px',
+                      overflow: 'hidden',
+                    }}
+                  >
                     <div className="mi-title">
                       <h4>{event.name}</h4>
                       <div className="triangle"></div>
@@ -60,7 +67,7 @@ export default function Events() {
                     </div>
                     <h2 className="mi-price">
                       {event.price}
-                      <span> EGP</span>
+                      <span> USD</span>
                     </h2>
                     <ul>
                       <li>
@@ -78,9 +85,10 @@ export default function Events() {
                         <span>{event.capacity}</span>
                       </li>
                     </ul>
-                    <a href="#!" className="primary-btn membership-btn">
-                      Going
-                    </a>
+                    <p className="fs-3">Buy a Ticket</p>
+                    <div className="w-75 mx-auto">
+                      <Paypal context={event} type="event" />
+                    </div>
                   </div>
                 </div>
               );
