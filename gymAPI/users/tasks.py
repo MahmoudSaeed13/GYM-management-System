@@ -6,13 +6,12 @@ from users.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
 @shared_task(bind=True)
-def send_activation_email(self, current_site, user_email):
+def send_activation_email(self, user_email):
 
     user = User.objects.get(email=user_email)
     token = RefreshToken.for_user(user).access_token
-    relative_link = reverse("user-verify-email")
 
-    absurl = "http://" + current_site + relative_link + "?token=" + str(token)
+    absurl = "http://localhost:3000/" + "?token=" + str(token)
     
     email_body = (
         "Hi "

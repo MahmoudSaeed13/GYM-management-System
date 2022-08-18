@@ -5,7 +5,7 @@ from classes.models import Class
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        fields = ["id", "name", "address", "description", "phone"]
+        fields = ["id", "name", "address", "phone"]
 
 class BranchClassSerializer(serializers.ModelSerializer):
     branch_id = serializers.CharField()

@@ -4,6 +4,6 @@ from trainers.models import Trainer
 class TrainerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trainer
-        fields = ["name", "age", "gender", "phone", "experience", "branch_id", "class_id"]
-
+        depth = 1
+        fields = ["id", "name", "age", "gender", "phone", "experience", "branch_id", "class_id"]
 
