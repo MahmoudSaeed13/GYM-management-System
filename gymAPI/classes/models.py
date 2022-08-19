@@ -21,15 +21,10 @@ class Class(TimeStampedModel):
     
 class AttendantManager(models.Manager):    
     def get_queryset(self):
-        return super().get_queryset().select_related("attendant", "class")
+        return super().get_queryset().select_related("attendant", "clas")
 class Attendant(TimeStampedModel):
     attendant = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attendants")
     clas = models.ForeignKey(Class, on_delete=models.CASCADE, related_name="clases")
-    subscribe_status_choices = (
-        ("subscribe", "Subscribe"),
-        ("unsubscribe", "Unsubscribe"),
-    )
-    attend_status = models.CharField(max_length=50, choices=subscribe_status_choices)
 
     class Meta:
         unique_together = ["clas", "attendant"]

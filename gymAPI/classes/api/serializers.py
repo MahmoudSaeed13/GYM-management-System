@@ -1,7 +1,6 @@
 from rest_framework import serializers
-from classes.models import Class
-from classes.models import Attendant
-
+from classes.models import Class,Attendant
+from rest_framework.exceptions import ValidationError
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
@@ -13,17 +12,22 @@ class AttendantSerializer(serializers.ModelSerializer):
     attendant = serializers.CharField(read_only=True)
     class Meta:
         model = Attendant
-        fields = ["attendant","clas", "subscribe_status"]
+        fields = ["attendant","clas"]
 
     def __init__(self, *args, **kwargs):
         data = kwargs['data']
         self.attendant = data['attendant']
         super().__init__(*args, **kwargs)
 
+    def validate(self, attrs):
+        clas = Class.objects.get(name=attrs.get("clas"))
+        if Attendant.objects.filter(clas = clas.id).filter(attendant=self.attendant).first():
+            raise ValidationError({"error":"You already subscribed to this class."})
+        return attrs
+
     def create(self, validated_data):
         return Attendant.objects.create(
             attendant = self.attendant,
-            clas = Class.objects.get(name=validated_data.get('clas')),
-            subscribe_status = validated_data.get("subscribe_status")
+            clas = Class.objects.get(name=validated_data.get('clas'))
         )
         

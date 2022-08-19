@@ -1,8 +1,6 @@
 from events.models import Event, Participant
 from rest_framework import serializers
-from users.models import User
-
-
+from rest_framework.exceptions import ValidationError
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
@@ -19,6 +17,12 @@ class ParticipantSerializer(serializers.ModelSerializer):
         data = kwargs['data']
         self.participant = data['participant']
         super().__init__(*args, **kwargs)
+
+    def validate(self, attrs):
+        event = Event.objects.get(name=attrs.get("event"))
+        if Participant.objects.filter(event = event.id).filter(participant=self.participant).first():
+            raise ValidationError({"error":"You already subscribed to this event."})
+        return attrs
 
     def create(self, validated_data):
         return Participant.objects.create(

@@ -9,7 +9,7 @@ class EventsManager(models.Manager):
         return super().get_queryset().order_by("id")
 
 class Event(TimeStampedModel):
-    name = models.CharField(_("Event Name"), max_length=50, null=False)
+    name = models.CharField(_("Event Name"), max_length=50, null=False, unique=True)
     description = models.TextField(_("Event Description"))
     photo = models.ImageField(_("Event Image"), null=True, blank=True, upload_to="events/images")
     capacity = models.IntegerField(_("Number of subscription"), blank=True, null=True)

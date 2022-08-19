@@ -66,34 +66,4 @@ class AttendantViewSet(GenericViewSet):
                 {"msg": "You are not subscribed for this classs"},
                 status=status.HTTP_409_CONFLICT,
             )
-
-    @action(
-        methods=["PATCH"],
-        detail=False,
-        url_path='status',
-        url_name='update-attend-class',
-        permission_classes=[IsAuthenticated],
-        throttle_classes = [UserRateThrottle]
-    )
-    def update_status(self, request):
-        try:
-            clas = Class.objects.get(name=request.data.get("clas"))
-            clas_attendant = Attendant.objects.get(attendant=request.user, clas=clas)
-            clas_attendant.subscribe_status = request.data.get("subscribe_status")
-            clas_attendant.save()
-            print(clas)
-            print(clas_attendant)
-            print(clas_attendant.subscribe_status)
-            data = {
-                "msg": "Status updated successfully",
-                "attendant":str(request.user),
-                "clas":str(clas),
-                "attend_status":clas_attendant.subscribe_status
-            }
-            return Response(data, status=status.HTTP_200_OK)
-
-        except ObjectDoesNotExist:
-            return Response(
-                {"msg": "Either class does not exist or you are not subscribed for this class"},
-                status=status.HTTP_409_CONFLICT,
-            )
+            
