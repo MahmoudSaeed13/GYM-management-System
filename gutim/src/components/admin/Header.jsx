@@ -10,7 +10,10 @@ export default function AdminHeader() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.value);
   useEffect(() => {
-    if (localStorage.getItem('is_staff') === 'false') {
+    if (
+      localStorage.getItem('is_staff') === 'false' ||
+      localStorage.getItem('is_staff') === null
+    ) {
       nav('/');
     }
   }, []);
