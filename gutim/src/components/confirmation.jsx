@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import Footer from './footer';
 import Header from './header';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Confirmation() {
+  const auth = useSelector((state) => state.auth.value);
+  const nav = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const token = searchParams.get('token');
+  if (auth) {
+    nav('/');
+  }
   if (token) {
     axios
       .get(`${baseUrl}/users/verify-email/?token=${token}`)

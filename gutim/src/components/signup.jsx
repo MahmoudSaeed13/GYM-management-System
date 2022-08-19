@@ -105,7 +105,7 @@ export default function Signup() {
       </section>
 
       <div
-        className="w-75 mx-auto"
+        className="w-75 mx-auto my-5"
         style={{
           height: '80vh',
           display: 'flex',

@@ -50,6 +50,7 @@ export default function Header() {
         localStorage.removeItem('refresh');
         localStorage.removeItem('access');
         localStorage.removeItem('user_id');
+        localStorage.removeItem('is_staff');
         dispatch(setAuth(false));
         console.log(res);
       })

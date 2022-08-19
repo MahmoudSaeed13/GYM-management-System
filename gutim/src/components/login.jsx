@@ -6,6 +6,7 @@ import jwt_decode from 'jwt-decode';
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import Google from './google';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Login() {
@@ -109,6 +110,8 @@ export default function Login() {
               Sign in
             </button>
           </form>
+          <p className="my-3">Or Sign in With Google</p>
+          <Google />
         </main>
       </div>
       <Footer />

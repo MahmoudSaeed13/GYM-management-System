@@ -1,9 +1,9 @@
 import React from 'react';
-import Paypal from './paypal';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import Paypal from './paypal';
+import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Home() {
