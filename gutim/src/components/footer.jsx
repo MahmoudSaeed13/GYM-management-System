@@ -71,23 +71,6 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          <div
-            className="subscribe-option"
-            style={{
-              background: 'url(img/footer-signup.jpg)',
-            }}
-          >
-            <div className="so-text">
-              <h4>Subscribe To Our Mailing List</h4>
-              <p>Sign up to receive the latest information</p>
-            </div>
-            <form action="#" className="subscribe-form">
-              <input type="text" placeholder="Enter Your Mail" />
-              <button type="submit">
-                <i className="fa fa-send"></i>
-              </button>
-            </form>
-          </div>
           <div className="copyright-text">
             <p>&copy;</p>
             <p>

@@ -91,7 +91,7 @@ export default function Signup() {
           <div className="row">
             <div className="col-lg-12">
               <div className="breadcrumb-text">
-                <h2>Classes</h2>
+                <h2>Register</h2>
                 <div className="breadcrumb-option">
                   <a href="./index.html">
                     <i className="fa fa-home"></i> Home
@@ -105,9 +105,9 @@ export default function Signup() {
       </section>
 
       <div
-        className="w-75 mx-auto my-5"
+        className="w-75 mx-auto"
         style={{
-          height: '80vh',
+          height: '110vh',
           display: 'flex',
           alignItems: 'center',
           paddingTop: '20px',
@@ -173,7 +173,9 @@ export default function Signup() {
           </p>
         </main>
       </div>
-      <Footer />
+      <div className='mt-5'>
+        <Footer />
+      </div>
     </React.Fragment>
   );
 }

@@ -106,7 +106,7 @@ export default function Login() {
               <label for="floatingPassword">Password</label>
             </div>
             <p className="text-danger">{error?.response?.data?.detail}</p>
-            <button className="w-100 btn btn-lg btn-primary" type="submit">
+            <button className="w-100 btn btn-lg btn-outline-dark" type="submit">
               Sign in
             </button>
           </form>

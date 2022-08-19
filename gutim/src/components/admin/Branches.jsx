@@ -122,6 +122,13 @@ export default function AdminBranches() {
     }
   };
 
+
+  const activateCreateModal = (e) =>{
+    e.preventDefault();
+    setCreateModal(true)
+    setEditModal(false)
+  }
+
   const renderCreateModal = () => {
     return (
       <div className="mx-auto w-75 mt-5">
@@ -181,6 +188,7 @@ export default function AdminBranches() {
   const activateEditModal = (e, branch) => {
     e.preventDefault();
     setEditModal(true);
+    setCreateModal(false)
     setEditBranch(branch);
   };
 
@@ -378,7 +386,7 @@ export default function AdminBranches() {
         <div className="d-flex justify-content-center">
           <button
             className="btn btn-success mx-2 w-50"
-            onClick={() => setCreateModal(true)}
+            onClick={activateCreateModal}
           >
             Add Branch
           </button>

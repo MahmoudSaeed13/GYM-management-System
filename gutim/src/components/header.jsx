@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from '../redux/reducers/authSlice';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Header() {
+  const nav = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.value);
   if (localStorage.getItem('refresh')) {
@@ -53,6 +54,7 @@ export default function Header() {
         localStorage.removeItem('is_staff');
         dispatch(setAuth(false));
         console.log(res);
+        nav("/");
       })
       .catch((err) => {
         console.log(err);
@@ -96,6 +98,11 @@ export default function Header() {
             {!auth && (
               <NavLink to="/signup" className="primary-btn signup-btn">
                 Sign Up Today
+              </NavLink>
+            )}
+            {!auth && (
+              <NavLink to="/login" className="primary-btn signup-btn">
+                Login
               </NavLink>
             )}
             {auth && (

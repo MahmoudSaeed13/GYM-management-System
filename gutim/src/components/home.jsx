@@ -164,9 +164,9 @@ export default function Home() {
           <div className="row">
             {trainerData.map((trainer) => {
               return (
-                <div className="col-lg-4 col-md-6">
+                <div className="col-lg-4 col-md-6 my-5">
                   <div className="single-trainer-item">
-                    <img src="{trainer.image}" alt="" />
+                    <img src={`http://localhost:8000${trainer.image}`} height="550" alt="" />
                     <div className="trainer-text">
                       <h5>{trainer.name}</h5>
                       <span>{trainer.experience} Years of Experience.</span>
@@ -228,7 +228,7 @@ export default function Home() {
               return (
                 <div className="col-lg-4">
                   <div
-                    className="membership-item"
+                    className="membership-item my-3"
                     style={{
                       height: '420px',
                       overflow: 'hidden',

@@ -57,7 +57,7 @@ export default function Events() {
               return (
                 <div className="col-lg-4">
                   <div
-                    className="membership-item"
+                    className="membership-item my-3"
                     style={{
                       height: '610px',
                       overflow: 'hidden',
@@ -76,7 +76,7 @@ export default function Events() {
                       <li>
                         <p>Duration</p>
                         <span>
-                          {event.start_date} to {event.end_date}
+                          {event.start_date.slice(0,10)} <strong className='text-warning fs-3'>to</strong> {event.end_date.slice(0,10)}
                         </span>
                       </li>
                       <li>
