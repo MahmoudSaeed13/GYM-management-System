@@ -5,7 +5,6 @@ from rest_framework.decorators import action
 from rest_framework import status
 from users.api.serializers import ProfileSerializer, UserSerializer, LoginSerializer, LogoutSerializer,GoogleSerializer
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from django.contrib.sites.shortcuts import get_current_site
 from users.permissions import IsProfileOwner
 from users.tasks import send_activation_email
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -97,8 +96,8 @@ class UserViewSet(RetrieveModelMixin, GenericViewSet):
             return Response(
                 {"email": "Your email address already activated."}, status=status.HTTP_400_BAD_REQUEST
             )
-        current_site = get_current_site(request).domain
-        send_activation_email.delay(current_site, email)
+        
+        send_activation_email.delay(email)
 
         return Response(
                 {"email": "Email sent"}, status=status.HTTP_200_OK
@@ -142,8 +141,13 @@ class UserProfileAPIView(
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = [IsProfileOwner,]
-    throttle_classes=[AnonRateThrottle, UserRateThrottle]
 
+    def get_throttles(self):
+        if self.action == 'list' or self.action == "retrieve":
+            throttle_classes = [AnonRateThrottle]
+        else:
+            throttle_classes = [UserRateThrottle]
+        return [throttle() for throttle in throttle_classes]
 
 
 class GoogleSociaAuthView(GenericAPIView):

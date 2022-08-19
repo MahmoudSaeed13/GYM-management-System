@@ -67,7 +67,7 @@ class TestUSerModel(TestSetUp):
             password=self.user_data['password']
         )
         self.assertIsInstance(user, User)
-        self.assertEqual(user.is_verified, False) 
+        self.assertEqual(user.is_verified, True) 
         self.assertEqual(user.is_superuser, True) 
         self.assertEqual(user.is_staff, True) 
         self.assertEqual(user.is_active, True) 
