@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import Home from './components/home';
 import Branches from './components/branch';
 import Classes from './components/classes';

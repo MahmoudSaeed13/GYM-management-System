@@ -214,7 +214,9 @@ export default function AdminTrainers() {
           },
         })
         .then((res) => {
-          setTrainers([...trainers, newTrainer]);
+          axios.get('http://localhost:8000/api/trainers/').then((res) => {
+            setTrainers(res.data);
+          });
           setCreateForm(false);
         })
         .catch((err) => {

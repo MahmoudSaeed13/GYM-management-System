@@ -37,11 +37,12 @@ export default function Login() {
         localStorage.setItem('user_id', jwt_decode(tokens.refresh).user_id);
         localStorage.setItem('refresh', tokens.refresh);
         localStorage.setItem('access', tokens.access);
+        localStorage.setItem('is_staff', res.data.is_staff);
         setError({});
+        dispatch(setAuth(true));
+        nav('/');
       })
-      .catch((err) => setError({ ...err }));
-    dispatch(setAuth(true));
-    nav('/');
+      .catch((err) => console.log(err));
   };
 
   return (

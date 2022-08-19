@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export default function AdminSideNav() {
   return (
     <React.Fragment>
-      <aside className="main-sidebar sidebar-dark-primary elevation-4">
+      <aside className="main-sidebar sidebar-dark-primary elevation-4 position-fixed">
         <NavLink to="/admin" className="brand-link">
           <img
             src="/dist/img/AdminLTELogo.png"

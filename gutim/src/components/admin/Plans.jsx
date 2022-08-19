@@ -120,7 +120,9 @@ export default function AdminPlans() {
           },
         })
         .then((res) => {
-          setPlans([...plans, newPlan]);
+          axios.get('http://localhost:8000/api/sub/plan/').then((res) => {
+            setPlans(res.data);
+          });
           setCreateForm(false);
         })
         .catch((err) => {

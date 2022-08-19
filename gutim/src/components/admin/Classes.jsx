@@ -120,13 +120,9 @@ export default function AdminClasses() {
           },
         })
         .then((res) => {
-          var newID = classes.slice(-1)[0].id;
-
-          setNewClass({
-            ...newClass,
-            id: newID + 1,
+          axios.get('http://localhost:8000/api/classes/').then((res) => {
+            setClasses(res.data);
           });
-          setClasses([...classes, newClass]);
           setCreateClass(false);
         })
         .catch((err) => {

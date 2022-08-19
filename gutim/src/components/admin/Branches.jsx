@@ -110,12 +110,9 @@ export default function AdminBranches() {
           },
         })
         .then((res) => {
-          var newID = branches.slice(-1)[0].id;
-          setNewBranch({
-            ...newBranch,
-            id: newID + 1,
+          axios.get('http://localhost:8000/api/branch').then((res) => {
+            setBranches(res.data);
           });
-          setBranches([...branches, newBranch]);
           setCreateModal(false);
         })
         .catch((err) => {

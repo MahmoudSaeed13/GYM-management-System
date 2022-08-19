@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAuth } from '../../redux/reducers/authSlice';
@@ -7,11 +7,13 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function AdminHeader() {
   const nav = useNavigate();
+  useEffect(() => {
+    if (localStorage.getItem('is_staff') === 'false') {
+      nav('/');
+    }
+  }, []);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.value);
-  // if (localStorage.getItem('user_id') !== 1 || !auth) {
-  //   nav('/');
-  // }
   if (localStorage.getItem('refresh')) {
     dispatch(setAuth(true));
   }

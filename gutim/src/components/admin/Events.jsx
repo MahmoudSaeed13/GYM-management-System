@@ -165,7 +165,9 @@ export default function AdminEvents() {
           },
         })
         .then((res) => {
-          setEvents([...events, newEvent]);
+          axios.get('http://localhost:8000/api/events/').then((res) => {
+            setEvents(res.data);
+          });
           setCreateForm(false);
         })
         .catch((err) => {
