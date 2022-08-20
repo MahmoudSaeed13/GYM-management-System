@@ -65,7 +65,7 @@ export default function Login() {
           <div className="row">
             <div className="col-lg-12">
               <div className="breadcrumb-text">
-                <h2>Classes</h2>
+                <h2>Login</h2>
                 <div className="breadcrumb-option">
                   <a href="./index.html">
                     <i className="fa fa-home"></i> Home

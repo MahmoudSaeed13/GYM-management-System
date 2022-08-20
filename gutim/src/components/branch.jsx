@@ -56,7 +56,7 @@ export default function Branches() {
             {branchData.map((branch) => {
               return (
                 <div className="col-lg-4">
-                  <div className="membership-item">
+                  <div className="membership-item my-3">
                     <div className="mi-title">
                       <h4>{branch.name}</h4>
                       <div className="triangle"></div>

@@ -9,6 +9,7 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Events() {
   const [eventData, setEventData] = useState([]);
+
   useEffect(() => {
     try {
       axios.get(baseUrl + '/events/').then((res) => {
@@ -55,6 +56,11 @@ export default function Events() {
           </div>
           <div className="row">
             {eventData.map((event) => {
+              try{
+                var start_date = event.start_date.slice(0, 10)
+                var end_date = event.end_date.slice(0, 10)
+              } catch {}
+              
               return (
                 <div className="col-lg-4">
                   <div
@@ -77,9 +83,9 @@ export default function Events() {
                       <li>
                         <p>Duration</p>
                         <span>
-                          {event.start_date.slice(0, 10)}{' '}
-                          <strong className="text-warning fs-3">to</strong>{' '}
-                          {event.end_date.slice(0, 10)}
+                          {start_date}
+                          <strong className="text-warning fs-3 mx-3">to</strong>
+                          {end_date}
                         </span>
                       </li>
                       <li>
