@@ -10,22 +10,31 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ("classes", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ("events", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name="participant",
-            name="participant",
+            model_name="attendant",
+            name="attendant",
             field=models.ForeignKey(
                 on_delete=django.db.models.deletion.CASCADE,
-                related_name="participants",
+                related_name="attendants",
                 to=settings.AUTH_USER_MODEL,
             ),
         ),
+        migrations.AddField(
+            model_name="attendant",
+            name="clas",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="clases",
+                to="classes.class",
+            ),
+        ),
         migrations.AlterUniqueTogether(
-            name="participant",
-            unique_together={("event", "participant")},
+            name="attendant",
+            unique_together={("clas", "attendant")},
         ),
     ]

@@ -61,18 +61,12 @@ INSTALLED_APPS = [
     "django_extensions",
     "corsheaders",
     "rest_framework_simplejwt.token_blacklist",
-    'drf_yasg',
+    "drf_yasg",
 ]
 
 SWAGGER_SETTINGS = {
-   'USE_SESSION_AUTH': False,
-   'SECURITY_DEFINITIONS': {
-    'Bearer':{
-        'type':"apiKey",
-        'name':"Authorization",
-        'in':"header"
-    }
-   }
+    "USE_SESSION_AUTH": False,
+    "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
 }
 
 MIDDLEWARE = [

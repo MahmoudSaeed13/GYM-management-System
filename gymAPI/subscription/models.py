@@ -6,9 +6,12 @@ from django.utils.translation import gettext_lazy as _
 from django_extensions.db.fields import ModificationDateTimeField
 from subscription.utils import set_subscription_end_date
 
+
 class PlanManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().order_by("id")
+
+
 # Create your models here.
 class Plan(TimeStampedModel):
     name = models.fields.CharField(_("Plan Name"), max_length=40, unique=True)
@@ -16,14 +19,18 @@ class Plan(TimeStampedModel):
     price = MoneyField(_("Plan Price"), max_digits=8, decimal_places=2, default_currency="EGP")
 
     objects = PlanManager()
+
     def __str__(self):
         return self.name
+
 
 class SubscriptionManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().select_related("user_id", "plan_id")
+
+
 class Subscription(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="subscriped_users")
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE, related_name="subscriped_users")
     start_date = models.fields.DateField(_("subscription start date"), auto_now_add=True, null=True)
     end_date = models.fields.DateField(_("subscription end date"), null=True)
     modified = ModificationDateTimeField(_("modified"))
@@ -34,7 +41,6 @@ class Subscription(models.Model):
     def save(self, *args, **kwargs):
         set_subscription_end_date(self)
         return super().save(*args, **kwargs)
-
 
     def __str__(self):
         return f"{self.user_id} Subscriped To {self.plan_id}"
