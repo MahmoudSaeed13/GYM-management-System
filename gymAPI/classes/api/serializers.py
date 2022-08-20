@@ -1,10 +1,16 @@
 from rest_framework import serializers
 from classes.models import Class,Attendant
 from rest_framework.exceptions import ValidationError
+from classes.tasks import send_new_class_email
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class
         fields = ["id", "name", "description", "price","created"]
+
+    def create(self, validated_data):
+        print("validated_data",validated_data)
+        send_new_class_email.delay(validated_data['name'], validated_data['price'])
+        return super().create(validated_data)
 
 
 class AttendantSerializer(serializers.ModelSerializer):

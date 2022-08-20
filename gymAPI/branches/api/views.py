@@ -9,6 +9,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.generics import UpdateAPIView
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from drf_yasg.utils import swagger_auto_schema
 # List or get all snd Create new Class
 class BranchesListView(APIView):
     permission_classes = [AllowAny,]
@@ -19,11 +20,13 @@ class BranchesListView(APIView):
         return Response(serializer.data, status= status.HTTP_200_OK)
 
 class BranchCreateView(APIView):
+    serializer_class = BranchSerializer
     permission_classes = [IsAuthenticated, IsAdminUser]
     throttle_classes = [UserRateThrottle]
+    @swagger_auto_schema(request_body=BranchSerializer)
     def post(self, request):
         newBranch = request.data
-        serializer = BranchSerializer(data = newBranch)
+        serializer = self.serializer_class(data = newBranch)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data, status= status.HTTP_201_CREATED)
@@ -73,6 +76,7 @@ class BranchClassListView(APIView):
 class BranchClassCreateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     throttle_classes = [UserRateThrottle]
+    @swagger_auto_schema(request_body=BranchClassSerializer)
     def post(self, request):
         serializer = BranchClassSerializer(data=request.data)
         

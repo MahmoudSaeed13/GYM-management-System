@@ -13,7 +13,7 @@ class Class(TimeStampedModel):
     name = models.CharField(_("Class Name"),max_length=100, unique=True) 
     description = models.TextField(_("Class Description"))
     price = MoneyField(_("Class Price"),max_digits=8, decimal_places=2, default_currency='EGP')
-    
+
     objects = ClassManager()
 
     def __str__(self):

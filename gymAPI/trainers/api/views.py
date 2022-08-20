@@ -7,6 +7,7 @@ from trainers.models import Trainer
 from django.shortcuts import get_object_or_404
 from rest_framework.generics import UpdateAPIView
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from drf_yasg.utils import swagger_auto_schema
 # List or get all snd Create new Trainer
 class TrainersListView(APIView):
     permission_classes = [AllowAny,]
@@ -19,6 +20,8 @@ class TrainersListView(APIView):
 class TrainerCreateView(APIView):
     permission_classes = [IsAuthenticated, IsAdminUser]
     throttle_classes=[UserRateThrottle]
+
+    @swagger_auto_schema(request_body=TrainerSerializer)
     def post(self, request):
         newTrainer = request.data
         serializer = TrainerSerializer(data = newTrainer)

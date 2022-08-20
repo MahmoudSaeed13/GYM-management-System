@@ -61,7 +61,19 @@ INSTALLED_APPS = [
     "django_extensions",
     "corsheaders",
     "rest_framework_simplejwt.token_blacklist",
+    'drf_yasg',
 ]
+
+SWAGGER_SETTINGS = {
+   'USE_SESSION_AUTH': False,
+   'SECURITY_DEFINITIONS': {
+    'Bearer':{
+        'type':"apiKey",
+        'name':"Authorization",
+        'in':"header"
+    }
+   }
+}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -188,6 +200,9 @@ task_serializer = "json"
 timezone = "UTC"
 imports = [
     "users.tasks",
+    "classes.tasks",
+    "events.tasks",
+    "branches.tasks",
 ]
 
 CORS_ALLOWED_ORIGINS = [

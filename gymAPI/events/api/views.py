@@ -8,6 +8,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from drf_yasg.utils import swagger_auto_schema
+
+
 class EventListView(generics.ListAPIView):
     queryset = Event.objects.all()
     serializer_class = EventSerializer

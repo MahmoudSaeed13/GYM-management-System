@@ -1,10 +1,20 @@
 from events.models import Event, Participant
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
+from events.tasks import send_new_event_email
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ["id","name", "description", "photo", "capacity", "start_date", "end_date", "price"]
+    
+    def create(self, validated_data):
+        print(validated_data)
+        name=validated_data['name']
+        price=validated_data['price']
+        start_date=validated_data['start_date']
+        end_date=validated_data['end_date']
+        send_new_event_email.delay(name, price, start_date, end_date)
+        return super().create(validated_data)
 
 class ParticipantSerializer(serializers.ModelSerializer):
     event = serializers.CharField()
