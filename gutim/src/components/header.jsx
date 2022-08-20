@@ -102,6 +102,14 @@ export default function Header() {
                 Login
               </NavLink>
             )}
+            {localStorage.getItem('is_staff') === 'true' && (
+              <NavLink
+                to="/admin"
+                className="btn btn-outline-danger signup-btn"
+              >
+                Admin
+              </NavLink>
+            )}
             {auth && (
               <button
                 className="btn btn-outline-danger signup-btn"

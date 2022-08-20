@@ -42,6 +42,32 @@ export default function AdminHeader() {
         });
     }, 120000);
   }
+  const logout = () => {
+    axios
+      .post(
+        `${baseUrl}/users/logout/`,
+        {
+          refresh: localStorage.getItem('refresh'),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
+          },
+        }
+      )
+      .then((res) => {
+        localStorage.removeItem('refresh');
+        localStorage.removeItem('access');
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('is_staff');
+        dispatch(setAuth(false));
+        console.log(res);
+        nav('/');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <React.Fragment>
       {/* Navbar */}
@@ -75,6 +101,11 @@ export default function AdminHeader() {
             >
               <i className="fas fa-expand-arrows-alt" />
             </a>
+          </li>
+          <li>
+            <button className="btn btn-outline-danger" onClick={logout}>
+              Logout
+            </button>
           </li>
         </ul>
       </nav>

@@ -40,9 +40,9 @@ export default function Paypal(props) {
               );
             } else if (props.type === 'class') {
               axios.post(
-                `${baseUrl}/events/subscribe/`,
+                `${baseUrl}/classes/attendant/subscribe/`,
                 {
-                  // data
+                  clas: props.context.name,
                 },
                 {
                   headers: {
@@ -54,7 +54,6 @@ export default function Paypal(props) {
               axios.post(
                 `${baseUrl}/events/subscribe/`,
                 {
-                  participant: localStorage.getItem('user_id'),
                   event: props.context.name,
                   attend_status: 'going',
                 },
@@ -77,7 +76,7 @@ export default function Paypal(props) {
           console.log(err);
         },
       })
-      .render(`#${props.context.name}`);
+      .render(`#${props.context.name.split(' ').join('')}`);
   }, []);
   return (
     <React.Fragment>
@@ -86,7 +85,7 @@ export default function Paypal(props) {
           Login To Countinue
         </NavLink>
       )}
-      {auth && <div id={props.context.name}>Paypal</div>}
+      {auth && <div id={props.context.name.split(' ').join('')}>Paypal</div>}
     </React.Fragment>
   );
 }
