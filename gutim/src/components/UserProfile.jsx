@@ -1,34 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-const baseUrl = 'http://127.0.0.1:8000/api';
-
-export default function UserProfile() {
-  const nav = useNavigate();
-  const id = localStorage.getItem('user_id');
-  const auth = useSelector((state) => state.auth.value);
-  const [profileData, setProfileData] = useState([]);
-  useEffect(() => {
-    if (!auth) {
-      nav('/');
-    }
-    axios
-      .get(`${baseUrl}/users/profile/${id}`)
-      .then((res) => {
-        setProfileData(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+const baseUrl = "http://127.0.0.1:8000/api";
+function UserProfile() {
+  let id = localStorage.getItem("user_id");
+  console.log(id);
   const [userData, setUserData] = useState({
-    name: '',
-    age: '',
-    phone: '',
-    height: '',
-    weight: '',
-    image: '',
-    gender: '',
+    name: "",
+    age: "",
+    phone: "",
+    height: "",
+    weight: "",
+    image: "",
+    gender: "",
   });
 
   const handleChange = (e) => {
@@ -37,7 +22,6 @@ export default function UserProfile() {
       [e.target.name]: e.target.value,
     });
   };
-
   const handleFileChange = (e) => {
     setUserData({
       ...userData,
@@ -47,37 +31,53 @@ export default function UserProfile() {
 
   const submitForm = () => {
     const userFormData = new FormData();
-    userFormData.append('name', userData.name);
-    userFormData.append('age', userData.age);
-    userFormData.append('phone', userData.phone);
-    userFormData.append('height', userData.height);
-    userFormData.append('weight', userData.weight);
-    userFormData.append('image', userData.image);
-    userFormData.append('gender', userData.gender);
+    userFormData.append("name", userData.name);
+    userFormData.append("age", userData.age);
+    userFormData.append("phone", userData.phone);
+    userFormData.append("height", userData.height);
+    userFormData.append("weight", userData.weight);
+    userFormData.append("image", userData.image);
+    userFormData.append("gender", userData.gender);
 
-    axios
-      .post(`${baseUrl}/users/profile/${id}`, userFormData, {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      })
-      .then((res) => {
-        setUserData({
-          name: '',
-          age: '',
-          phone: '',
-          height: '',
-          weight: '',
-          image: '',
-          gender: '',
+    try {
+      axios
+        .post(baseUrl + "/users/profile/" + id, userFormData, {
+          headers: {
+            "content-type": "multipart/form-data",
+          },
+        })
+        .then((reponse) => {
+          setUserData({
+            name: "",
+            age: "",
+            phone: "",
+            height: "",
+            weight: "",
+            image: "",
+            gender: "",
+          });
         });
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const [profileData, setProfileData] = useState([]);
+  useEffect(() => {
+    try {
+      axios.get(baseUrl + "/users/profile/" + id).then((res) => {
+        setProfileData(res.data);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  console.log(profileData);
 
   return (
     <div className="content-wrapper">
+      {/* Content Header (Page header) */}
       <section className="content-header">
         <div className="container-fluid">
           <div className="row mb-2">
@@ -87,68 +87,58 @@ export default function UserProfile() {
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
                 <li className="breadcrumb-item">
-                  <a href="#!">Home</a>
+                  <a href="#">Home</a>
                 </li>
                 <li className="breadcrumb-item active">User Profile</li>
               </ol>
             </div>
           </div>
         </div>
+        {/* /.container-fluid */}
       </section>
-
+      {/* Main content */}
       <section className="content">
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">
+              {/* Profile Image */}
               <div className="card card-primary card-outline">
                 <div className="card-body box-profile">
                   <div className="text-center">
                     <img
                       className="profile-user-img img-fluid img-circle"
-                      src="../../dist/img/user4-128x128.jpg"
-                      alt=""
+                      src={profileData.image}
+                      alt="User profile picture"
                     />
                   </div>
                   <h3 className="profile-username text-center">
-                    {profileData}
+                    {profileData.user.name}
                   </h3>
                   <p className="text-muted text-center">Trainee</p>
                   <ul className="list-group list-group-unbordered mb-3">
                     <li className="list-group-item">
-                      <b>Phone</b>{' '}
-                      <a className="float-right" href="#!">
-                        {profileData.phone}
-                      </a>
+                      <b>Phone</b>{" "}
+                      <a className="float-right">{profileData.phone}</a>
                     </li>
                     <li className="list-group-item">
-                      <b>Age</b>{' '}
-                      <a className="float-right" href="#!">
-                        {profileData.age}
-                      </a>
+                      <b>Age</b>{" "}
+                      <a className="float-right">{profileData.age}</a>
                     </li>
                     <li className="list-group-item">
-                      <b>Height</b>{' '}
-                      <a className="float-right" href="#!">
-                        {profileData.height}
-                      </a>
+                      <b>Height</b>{" "}
+                      <a className="float-right">{profileData.height}</a>
                     </li>
                     <li className="list-group-item">
-                      <b>Weight</b>{' '}
-                      <a className="float-right" href="#!">
-                        {profileData.weight}
-                      </a>
+                      <b>Weight</b>{" "}
+                      <a className="float-right">{profileData.weight}</a>
                     </li>
                     <li className="list-group-item">
-                      <b>BMI</b>{' '}
-                      <a className="float-right" href="#!">
-                        {profileData.bmi}
-                      </a>
+                      <b>BMI</b>{" "}
+                      <a className="float-right">{profileData.bmi}</a>
                     </li>
                     <li className="list-group-item">
-                      <b>Gender</b>{' '}
-                      <a className="float-right" href="#!">
-                        {profileData.gender}
-                      </a>
+                      <b>Gender</b>{" "}
+                      <a className="float-right">{profileData.gender}</a>
                     </li>
                   </ul>
                   <div className="d-flex justify-content-center">
@@ -156,14 +146,16 @@ export default function UserProfile() {
                       className="btn btn-danger w-50"
                       data-toggle="modal"
                       data-target="#editProfile"
-                      href="#!"
                     >
                       Edit Profile
                     </a>
                   </div>
                 </div>
+                {/* /.card-body */}
               </div>
+              {/* /.card */}
             </div>
+            {/* /.col */}
 
             <div className="col-9">
               <div
@@ -205,7 +197,7 @@ export default function UserProfile() {
                                   className="form-control"
                                   name="name"
                                   placeholder="Name"
-                                  value={profileData}
+                                  value={profileData.user.name}
                                   onChange={handleChange}
                                 />
                               </div>
@@ -307,20 +299,25 @@ export default function UserProfile() {
                                 Gender
                               </label>
                               <div className="col-sm-10">
-                                <select
-                                  className="form-select"
-                                  name="gender"
-                                  onChange={handleChange}
-                                  aria-label="Default select example"
-                                >
-                                  <option selected>{profileData.gender}</option>
-                                  <option value="male">Male</option>
-                                  <option value="female">Female</option>
-                                </select>
+                                <div onchange={handleChange}>
+                                  <input
+                                    type="radio"
+                                    defaultValue="male"
+                                    name="gender"
+                                  />{" "}
+                                  Male
+                                  <input
+                                    type="radio"
+                                    defaultValue="female"
+                                    name="gender"
+                                  />{" "}
+                                  Female
+                                </div>
                               </div>
                             </div>
                           </form>
                         </div>
+                        {/* /.tab-pane */}
                       </div>
                     </div>
                     <div className="modal-footer">
@@ -343,9 +340,15 @@ export default function UserProfile() {
                 </div>
               </div>
             </div>
+            {/* /.col */}
           </div>
+          {/* /.row */}
         </div>
+        {/* /.container-fluid */}
       </section>
+      {/* /.content */}
     </div>
   );
 }
+
+export default UserProfile;
