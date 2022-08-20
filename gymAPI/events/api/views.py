@@ -49,6 +49,7 @@ class ParticipantsViewSet(GenericViewSet):
         permission_classes=[IsAuthenticated],
         throttle_classes = [UserRateThrottle]
     )
+    @swagger_auto_schema(request_body=ParticipantSerializer)
     def subscribe_event(self, request):
 
         serializer = self.serializer_class(data={**request.data, "participant":request.user})
@@ -64,6 +65,7 @@ class ParticipantsViewSet(GenericViewSet):
         permission_classes=[IsAuthenticated],
         throttle_classes = [UserRateThrottle]
     )
+    @swagger_auto_schema(request_body=ParticipantSerializer)
     def unsubscribe_event(self, request):
         try:
             event = Event.objects.get(name=request.data.get("event"))
@@ -84,6 +86,7 @@ class ParticipantsViewSet(GenericViewSet):
         permission_classes=[IsAuthenticated],
         throttle_classes = [UserRateThrottle]
     )
+    @swagger_auto_schema(request_body=ParticipantSerializer)
     def update_status(self, request):
         try:
             event = Event.objects.get(name=request.data.get("event"))

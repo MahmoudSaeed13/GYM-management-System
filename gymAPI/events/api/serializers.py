@@ -24,8 +24,9 @@ class ParticipantSerializer(serializers.ModelSerializer):
         fields = ["participant","event", "attend_status"]
 
     def __init__(self, *args, **kwargs):
-        data = kwargs['data']
-        self.participant = data['participant']
+        if "data" in kwargs:
+            data = kwargs['data']
+            self.participant = data['participant']
         super().__init__(*args, **kwargs)
 
     def validate(self, attrs):

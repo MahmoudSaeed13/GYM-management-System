@@ -107,10 +107,8 @@ class GoogleSerializer(serializers.Serializer):
             )
         
         if user_data['aud'] != os.environ.get("GOOGLE_CLIENT_ID"):
-            print(os.environ.get("GOOGLE_CLIENT_ID"))
             raise AuthenticationFailed("Wrong credintials")
 
-        print(user_data)
         user_id = user_data["sub"]
         email = user_data["email"]
         name = user_data["name"]

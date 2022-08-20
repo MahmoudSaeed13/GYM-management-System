@@ -154,7 +154,7 @@ class TestUserViewSet(TestSetUp):
         }
         res = self.client.post("/api/users/login/", data)
         self.assertEqual(res.status_code, 401)
-        self.assertEqual(res,data["detail"], "Your email address is not verified")
+        self.assertEqual(res.data["detail"], "Your email address is not verified")
         
     def test_user_cannot_login_with_wrong_credentials(self):
         data = {

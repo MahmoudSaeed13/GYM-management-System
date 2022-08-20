@@ -21,8 +21,9 @@ class AttendantSerializer(serializers.ModelSerializer):
         fields = ["attendant","clas"]
 
     def __init__(self, *args, **kwargs):
-        data = kwargs['data']
-        self.attendant = data['attendant']
+        if "data" in kwargs:
+            data = kwargs['data']
+            self.attendant = data['attendant']
         super().__init__(*args, **kwargs)
 
     def validate(self, attrs):

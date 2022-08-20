@@ -9,6 +9,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from classes.models import Attendant, Class
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from drf_yasg.utils import swagger_auto_schema
+
 class ClassViewSet(ModelViewSet):
     serializer_class = ClassSerializer
     queryset = Class.objects.all()
@@ -40,6 +42,7 @@ class AttendantViewSet(GenericViewSet):
         permission_classes=[IsAuthenticated],
         throttle_classes = [UserRateThrottle]
     )
+    @swagger_auto_schema(request_body=AttendantSerializer)
     def subscribe_class(self, request):
 
         serializer = self.serializer_class(data={**request.data, "attendant":request.user})
@@ -55,6 +58,7 @@ class AttendantViewSet(GenericViewSet):
         permission_classes=[IsAuthenticated],
         throttle_classes = [UserRateThrottle]
     )
+    @swagger_auto_schema(request_body=AttendantSerializer)
     def unsubscribe_class(self, request):
         try:
             clas = Class.objects.get(name=request.data.get("clas"))
