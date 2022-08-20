@@ -4,6 +4,7 @@ import Header from './header';
 import Footer from './footer';
 import Paypal from './paypal';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Home() {
@@ -45,12 +46,9 @@ export default function Home() {
                   high quality equipment with friendly, helpful staff and a
                   culture of support and encouragement for all.
                 </p>
-                <a
-                  href="http://172.20.196.180:3000/signup"
-                  className="primary-btn"
-                >
+                <NavLink to="/signup" className="primary-btn">
                   Sign Up
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -63,12 +61,12 @@ export default function Home() {
             <div className="col-lg-6">
               <div className="about-pic">
                 <img src="img/about-pic.jpg" alt="" />
-                <a
-                  href="https://www.youtube.com/watch?v=SlPhMPnQ58k"
+                <NavLink
+                  to="https://www.youtube.com/watch?v=SlPhMPnQ58k"
                   className="play-btn video-popup"
                 >
                   <img src="img/play.png" alt="" />
-                </a>
+                </NavLink>
               </div>
             </div>
             <div className="col-lg-6">
@@ -86,12 +84,9 @@ export default function Home() {
                   Wherever you are starting from, we’re by your side to help you
                   meet your health and fitness goals.
                 </p>
-                <a
-                  href="http://172.20.196.180:3000/about"
-                  className="primary-btn"
-                >
+                <NavLink to="/about" className="primary-btn">
                   Read More
-                </a>
+                </NavLink>
               </div>
             </div>
           </div>
@@ -166,7 +161,11 @@ export default function Home() {
               return (
                 <div className="col-lg-4 col-md-6 my-5">
                   <div className="single-trainer-item">
-                    <img src={`http://localhost:8000${trainer.image}`} height="550" alt="" />
+                    <img
+                      src={`http://localhost:8000${trainer.image}`}
+                      height="550"
+                      alt=""
+                    />
                     <div className="trainer-text">
                       <h5>{trainer.name}</h5>
                       <span>{trainer.experience} Years of Experience.</span>
@@ -199,12 +198,9 @@ export default function Home() {
                   you need to be part of a fitness family that shares those
                   values.
                 </p>
-                <a
-                  href="http://172.20.196.180:3000/contact"
-                  className="primary-btn banner-btn"
-                >
-                  Contact Now
-                </a>
+                <NavLink to="/about" className="primary-btn banner-btn">
+                  Know More
+                </NavLink>
               </div>
             </div>
             <div className="col-lg-5">

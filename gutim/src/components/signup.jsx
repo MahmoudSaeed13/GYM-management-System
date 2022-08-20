@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import { useSelector } from 'react-redux';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Signup() {
   const nav = useNavigate();
+  const auth = useSelector((state) => state.auth.value);
+  useEffect(() => {
+    if (auth) {
+      nav('/');
+    }
+  }, []);
   const [error, setError] = useState({});
   const [state, setState] = useState({
     name: '',
@@ -93,9 +100,9 @@ export default function Signup() {
               <div className="breadcrumb-text">
                 <h2>Register</h2>
                 <div className="breadcrumb-option">
-                  <a href="./index.html">
+                  <NavLink to="/">
                     <i className="fa fa-home"></i> Home
-                  </a>
+                  </NavLink>
                   <span>Sign up</span>
                 </div>
               </div>
@@ -173,7 +180,7 @@ export default function Signup() {
           </p>
         </main>
       </div>
-      <div className='mt-5'>
+      <div className="mt-5">
         <Footer />
       </div>
     </React.Fragment>

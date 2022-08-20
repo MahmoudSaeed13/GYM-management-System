@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -19,12 +20,9 @@ export default function Footer() {
                   Complete the training sessions with us, surely you will be
                   happy
                 </p>
-                <a
-                  href="http://172.20.196.180:3000/signup"
-                  className="primary-btn"
-                >
+                <NavLink to="/signup" className="primary-btn">
                   Join Us Now
-                </a>
+                </NavLink>
               </div>
             </div>
             <div className="col-lg-6">
@@ -37,12 +35,9 @@ export default function Footer() {
                 <span>contact us</span>
                 <h2>+20 3 746 204</h2>
                 <p>WE'D LOVE TO HEAR FROM YOU!</p>
-                <a
-                  href="http://172.20.196.180:3000/contact"
-                  className="primary-btn"
-                >
-                  Contact US
-                </a>
+                <NavLink to="/about" className="primary-btn">
+                  Know More
+                </NavLink>
               </div>
             </div>
           </div>

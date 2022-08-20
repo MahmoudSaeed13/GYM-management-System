@@ -54,7 +54,7 @@ export default function Header() {
         localStorage.removeItem('is_staff');
         dispatch(setAuth(false));
         console.log(res);
-        nav("/");
+        nav('/');
       })
       .catch((err) => {
         console.log(err);
@@ -86,9 +86,6 @@ export default function Header() {
                 </li>
                 <li>
                   <NavLink to="/gallery">Gallery</NavLink>
-                </li>
-                <li>
-                  <NavLink to="/contact">Contact Us</NavLink>
                 </li>
                 <li>
                   <NavLink to="/about">About</NavLink>

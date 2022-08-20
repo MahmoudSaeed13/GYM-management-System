@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setAuth } from '../redux/reducers/authSlice';
 import jwt_decode from 'jwt-decode';
@@ -12,6 +12,12 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 export default function Login() {
   const nav = useNavigate();
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth.value);
+  useEffect(() => {
+    if (auth) {
+      nav('/');
+    }
+  }, []);
   const [error, setError] = useState({});
   const [state, setState] = useState({
     email: '',
@@ -43,7 +49,7 @@ export default function Login() {
         dispatch(setAuth(true));
         nav('/');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err));
   };
 
   return (

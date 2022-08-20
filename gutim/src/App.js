@@ -7,11 +7,11 @@ import Branches from './components/branch';
 import Classes from './components/classes';
 import Events from './components/event';
 import Gallery from './components/gallery';
-import Contact from './components/contact';
 import About from './components/about';
 import Login from './components/login';
 import Signup from './components/signup';
 import Confirmation from './components/confirmation';
+import UserProfile from './components/userProfile';
 import AdminHome from './components/admin/Home';
 import AdminBranches from './components/admin/Branches';
 import AdminUsers from './components/admin/Users';
@@ -31,10 +31,10 @@ function App() {
         <Route path="event" element={<Events />} />
         <Route path="gallery" element={<Gallery />} />
         <Route path="about" element={<About />} />
-        <Route path="contact" element={<Contact />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="confirmation" element={<Confirmation />} />
+        <Route path="profile" element={<UserProfile />} />
 
         <Route path="admin" element={<AdminHome />} />
         <Route path="admin/branches" element={<AdminBranches />} />

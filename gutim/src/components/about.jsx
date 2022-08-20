@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import { NavLink } from 'react-router-dom';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function About() {
@@ -31,9 +32,9 @@ export default function About() {
               <div className="breadcrumb-text">
                 <h2>About</h2>
                 <div className="breadcrumb-option">
-                  <a href="./index.html">
+                  <NavLink to="/">
                     <i className="fa fa-home"></i> Home
-                  </a>
+                  </NavLink>
                   <span>About</span>
                 </div>
               </div>
@@ -48,12 +49,12 @@ export default function About() {
             <div className="col-lg-6">
               <div className="about-pic">
                 <img src="img/about-pic.jpg" alt="" />
-                <a
-                  href="https://www.youtube.com/watch?v=SlPhMPnQ58k"
+                <NavLink
+                  to="https://www.youtube.com/watch?v=SlPhMPnQ58k"
                   className="play-btn video-popup"
                 >
                   <img src="img/play.png" alt="" />
-                </a>
+                </NavLink>
               </div>
             </div>
             <div className="col-lg-6">
@@ -124,12 +125,9 @@ export default function About() {
                   training, weight loss, and how to have fun staying active. Let
                   us share our knowledge!
                 </p>
-                <a
-                  href="http://172.20.196.180:3000/contact"
-                  className="primary-btn banner-btn"
-                >
-                  Contact Now
-                </a>
+                <NavLink to="/about" className="primary-btn banner-btn">
+                  Know More
+                </NavLink>
               </div>
             </div>
             <div className="col-lg-5">

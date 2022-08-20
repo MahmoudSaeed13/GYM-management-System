@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useSearchParams, useNavigate, NavLink } from 'react-router-dom';
 import Footer from './footer';
 import Header from './header';
 import axios from 'axios';
@@ -55,9 +55,9 @@ export default function Confirmation() {
               <div className="breadcrumb-text">
                 <h2>Confirmation</h2>
                 <div className="breadcrumb-option">
-                  <a href="./index.html">
+                  <NavLink to="/">
                     <i className="fa fa-home"></i> Home
-                  </a>
+                  </NavLink>
                   <span>Confirmation</span>
                 </div>
               </div>

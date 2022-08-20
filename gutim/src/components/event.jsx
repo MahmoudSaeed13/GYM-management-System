@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import { NavLink } from 'react-router-dom';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Events() {
@@ -32,9 +33,9 @@ export default function Events() {
               <div className="breadcrumb-text">
                 <h2>EVENTS</h2>
                 <div className="breadcrumb-option">
-                  <a href="./index.html">
+                  <NavLink to="/">
                     <i className="fa fa-home"></i> Home
-                  </a>
+                  </NavLink>
                   <span>Events</span>
                 </div>
               </div>
@@ -76,7 +77,9 @@ export default function Events() {
                       <li>
                         <p>Duration</p>
                         <span>
-                          {event.start_date.slice(0,10)} <strong className='text-warning fs-3'>to</strong> {event.end_date.slice(0,10)}
+                          {event.start_date.slice(0, 10)}{' '}
+                          <strong className="text-warning fs-3">to</strong>{' '}
+                          {event.end_date.slice(0, 10)}
                         </span>
                       </li>
                       <li>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Footer from './footer';
 import Header from './header';
 
@@ -18,9 +19,9 @@ export default function Gallery() {
               <div className="breadcrumb-text">
                 <h2>Gallery</h2>
                 <div className="breadcrumb-option">
-                  <a href="./index.html">
+                  <NavLink to="/">
                     <i className="fa fa-home"></i> Home
-                  </a>
+                  </NavLink>
                   <span>Gallery</span>
                 </div>
               </div>

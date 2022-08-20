@@ -9,6 +9,9 @@ export default function AdminHeader() {
   const nav = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth.value);
+  if (localStorage.getItem('refresh')) {
+    dispatch(setAuth(true));
+  }
   useEffect(() => {
     if (
       localStorage.getItem('is_staff') === 'false' ||
@@ -17,9 +20,6 @@ export default function AdminHeader() {
       nav('/');
     }
   }, []);
-  if (localStorage.getItem('refresh')) {
-    dispatch(setAuth(true));
-  }
   if (auth) {
     setInterval(() => {
       axios

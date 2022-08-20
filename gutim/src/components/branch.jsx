@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import { NavLink } from 'react-router-dom';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Branches() {
@@ -31,9 +32,9 @@ export default function Branches() {
               <div className="breadcrumb-text">
                 <h2>Branches</h2>
                 <div className="breadcrumb-option">
-                  <a href="./index.html">
+                  <NavLink to="/">
                     <i className="fa fa-home"></i> Home
-                  </a>
+                  </NavLink>
                   <span>Branches</span>
                 </div>
               </div>
@@ -64,10 +65,6 @@ export default function Branches() {
                       <li>
                         <p>Phone</p>
                         <span>{branch.phone}</span>
-                      </li>
-                      <li>
-                        <p>Description</p>
-                        <span>{branch.description}</span>
                       </li>
                       <li>
                         <p>Address</p>
