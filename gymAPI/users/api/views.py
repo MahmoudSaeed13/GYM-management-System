@@ -9,11 +9,10 @@ from users.permissions import IsProfileOwner
 from users.tasks import send_activation_email
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.exceptions import ParseError
-from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin
+from rest_framework.generics import GenericAPIView, ListAPIView, RetrieveUpdateAPIView
+from rest_framework.mixins import RetrieveModelMixin
 from users.models import Profile
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-
 
 User = get_user_model()
 
@@ -126,29 +125,16 @@ class LogoutAPIView(GenericAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-class UserProfileAPIView(
-        RetrieveModelMixin, 
-        UpdateModelMixin,
-        ListModelMixin, 
-        GenericViewSet
-        ):
-    """
-        All users even if not logged in, will be able to see all 
-        profiles and retrive specific profile, only profile owners
-        who are logged in will be able to edit their profile.    
-    """
+class ProfileListAPIView(ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsProfileOwner,]
 
-    def get_throttles(self):
-        if self.action == 'list' or self.action == "retrieve":
-            throttle_classes = [AnonRateThrottle]
-        else:
-            throttle_classes = [UserRateThrottle]
-        return [throttle() for throttle in throttle_classes]
-
+class ProfileDetailUpdateAPIView(RetrieveUpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    lookup_field = 'user'
+    permission_classes = [IsAuthenticated, IsProfileOwner]
+    
 
 class GoogleSociaAuthView(GenericAPIView):
     serializer_class = GoogleSerializer

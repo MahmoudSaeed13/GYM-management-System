@@ -1,3 +1,4 @@
+from cgitb import lookup
 from rest_framework import serializers
 from users.models import Profile, User
 from rest_framework.exceptions import ParseError
@@ -93,7 +94,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field="username")
     class Meta:
         model = Profile
-        fields = ["id", "user", "phone", "age", "weight", "height", "bmi", "image", "gender"]
+        fields = ["user", "phone", "age", "weight", "height", "bmi", "image", "gender"]
 
 class GoogleSerializer(serializers.Serializer):
     auth_token = serializers.CharField()

@@ -84,7 +84,7 @@ class ProfileManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().select_related("user").order_by("id")
 class Profile(TimeStampedModel):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, primary_key=True)
     phone = models.CharField(_("Phone Number"),max_length=20, unique=True, null=True)
     age = models.IntegerField(_("Age"), null=True)
     weight = models.DecimalField(_("Weight"),max_digits=5, decimal_places=2, null=True)
