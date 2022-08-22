@@ -72,7 +72,7 @@ export default function Header() {
           <div className="nav-menu">
             <nav className="mainmenu mobile-menu">
               <ul>
-                <li className="active">
+                <li>
                   <NavLink to="/">Home</NavLink>
                 </li>
                 <li>

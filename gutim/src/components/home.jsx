@@ -1,13 +1,15 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import Header from './header';
 import Footer from './footer';
 import Paypal from './paypal';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function Home() {
+  const auth = useSelector((state) => state.auth.value);
   const [trainerData, setTrainerData] = useState([]);
   const [planData, setPlanData] = useState([]);
   useEffect(() => {
@@ -46,9 +48,15 @@ export default function Home() {
                   high quality equipment with friendly, helpful staff and a
                   culture of support and encouragement for all.
                 </p>
-                <NavLink to="/signup" className="primary-btn">
-                  Sign Up
-                </NavLink>
+                {auth ? (
+                  <NavLink to="/about" className="primary-btn">
+                    Know More
+                  </NavLink>
+                ) : (
+                  <NavLink to="/signup" className="primary-btn">
+                    Sign Up
+                  </NavLink>
+                )}
               </div>
             </div>
           </div>

@@ -56,13 +56,16 @@ export default function Classes() {
           </div>
           <div className="row">
             {classData.map((cls, i) => {
-              if (i > 8){
-                i = 0
+              if (i > 8) {
+                i = 0;
               }
               return (
                 <div className="col-lg-4 col-md-6 mb-5">
                   <div className="single-trainer-item">
-                    <img src={`img/classes/classes-${i + 1}.jpg`} alt="class image" />
+                    <img
+                      src={`img/classes/classes-${i > 8 ? i - 1 : i + 1}.jpg`}
+                      alt=""
+                    />
                     <div className="trainer-text">
                       <h5>{cls.name}</h5>
                       <span>
@@ -77,7 +80,6 @@ export default function Classes() {
                   </div>
                 </div>
               );
-
             })}
           </div>
         </div>

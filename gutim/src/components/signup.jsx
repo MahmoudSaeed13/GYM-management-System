@@ -44,6 +44,11 @@ export default function Signup() {
     setState({
       ...state,
       password: e.target.value,
+    });
+  };
+  const getPasswordConfirmation = (e) => {
+    setState({
+      ...state,
       password_confirmation: e.target.value,
     });
   };
@@ -73,6 +78,11 @@ export default function Signup() {
       errors.password = 'Password is Required';
     } else if (state.password.length < 8) {
       errors.password = 'Password must be greater than 8 character';
+    }
+    if (!state.password_confirmation) {
+      errors.passwordConfirmation = 'Password is Required';
+    } else if (state.password_confirmation !== state.password) {
+      errors.passwordConfirmation = 'The Password are not Matching';
     }
     setError({ ...errors });
     if (!Object.keys(errors).length) {
@@ -168,6 +178,19 @@ export default function Signup() {
               <label for="floatingPassword">Password</label>
             </div>
             <p className="text-danger">{error.password}</p>
+            <div className="form-floating my-2">
+              <input
+                type="password"
+                className="form-control"
+                id="floatingPasswordConfirmation"
+                placeholder="Password Confirmation"
+                onChange={getPasswordConfirmation}
+              />
+              <label for="floatingPasswordConfirmation">
+                Password Confirmation
+              </label>
+            </div>
+            <p className="text-danger">{error.passwordConfirmation}</p>
             <button className="w-100 btn btn-lg btn-outline-dark" type="submit">
               Sign up
             </button>
