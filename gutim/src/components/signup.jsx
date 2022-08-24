@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './header';
 import Footer from './footer';
+import Google from './google';
 import { useSelector } from 'react-redux';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
@@ -124,7 +125,7 @@ export default function Signup() {
       <div
         className="w-75 mx-auto"
         style={{
-          height: '110vh',
+          height: '100vh',
           display: 'flex',
           alignItems: 'center',
           paddingTop: '20px',
@@ -201,6 +202,8 @@ export default function Signup() {
               Login
             </NavLink>
           </p>
+          <p className="my-3">Or Sign up With Google</p>
+          <Google />
         </main>
       </div>
       <div className="mt-5">

@@ -13,12 +13,12 @@ export default function AdminHeader() {
     dispatch(setAuth(true));
   }
   useEffect(() => {
-    // if (
-    //   localStorage.getItem('is_staff') === 'false' ||
-    //   localStorage.getItem('is_staff') === null
-    // ) {
-    //   nav('/');
-    // }
+    if (
+      localStorage.getItem('is_staff') === 'false' ||
+      localStorage.getItem('is_staff') === null
+    ) {
+      nav('/');
+    }
   }, []);
   if (auth) {
     setInterval(() => {

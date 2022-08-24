@@ -9,6 +9,7 @@ const baseUrl = 'http://127.0.0.1:8000/api';
 export default function Confirmation() {
   const auth = useSelector((state) => state.auth.value);
   const nav = useNavigate();
+  const [error, setError] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const token = searchParams.get('token');
@@ -34,10 +35,8 @@ export default function Confirmation() {
       .post(`${baseUrl}/users/resend-verify-email/`, {
         email,
       })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
+      .then((res) => setError(''))
+      .catch((err) => setError(err));
     document.querySelector('#floatingInput').value = '';
   };
   return (
@@ -99,6 +98,7 @@ export default function Confirmation() {
               />
               <label for="floatingInput">Email</label>
             </div>
+            <p className="text-danger">{error?.response?.data?.email}</p>
             <button className="w-100 btn btn-lg btn-primary" type="submit">
               Submit
             </button>

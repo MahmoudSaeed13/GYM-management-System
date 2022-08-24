@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { setAuth } from '../redux/reducers/authSlice';
 import jwt_decode from 'jwt-decode';
 import axios from 'axios';
@@ -111,7 +111,17 @@ export default function Login() {
               />
               <label for="floatingPassword">Password</label>
             </div>
-            <p className="text-danger">{error?.response?.data?.detail}</p>
+            <p className="text-danger">
+              {error?.response?.data?.detail ===
+              'Your email address is not verified' ? (
+                <>
+                  {error?.response?.data?.detail}
+                  <NavLink to="/confirmation"> Verifiy Your Email</NavLink>
+                </>
+              ) : (
+                error?.response?.data?.detail
+              )}
+            </p>
             <button className="w-100 btn btn-lg btn-outline-dark" type="submit">
               Sign in
             </button>

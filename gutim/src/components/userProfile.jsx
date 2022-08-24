@@ -1,21 +1,14 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import AdminFooter from './admin/Footer';
-import AdminHeader from './admin/Header';
-import AdminSideNav from './admin/SideNav';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import Footer from './footer';
+import Header from './header';
 import axios from 'axios';
 const baseUrl = 'http://127.0.0.1:8000/api';
 
 export default function UserProfile() {
-  const [userData, setUserData] = useState({
-    name: '',
-    age: '',
-    phone: '',
-    height: '',
-    weight: '',
-    image: '',
-    gender: '',
-  });
+  const nav = useNavigate();
+  const [userData, setUserData] = useState({});
+  const [profileData, setProfileData] = useState({});
 
   const handleChange = (e) => {
     setUserData({
@@ -32,45 +25,31 @@ export default function UserProfile() {
   };
 
   const submitForm = () => {
-    const userFormData = new FormData();
-    userFormData.append('name', userData.name);
-    userFormData.append('age', userData.age);
-    userFormData.append('phone', userData.phone);
-    userFormData.append('height', userData.height);
-    userFormData.append('weight', userData.weight);
-    userFormData.append('image', userData.image);
-    userFormData.append('gender', userData.gender);
-    try {
-      axios
-        .put(
-          `${baseUrl}/users/profile/${localStorage.getItem('user_id')}/`,
-          userFormData,
-          {
-            headers: {
-              'content-type': 'multipart/form-data',
-              Authorization: `Bearer ${localStorage.getItem('access')}`,
-            },
-          }
-        )
-        .then((reponse) => {
-          setUserData({
-            name: '',
-            age: '',
-            phone: '',
-            height: '',
-            weight: '',
-            image: '',
-            gender: '',
-          });
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    axios
+      .patch(
+        `${baseUrl}/users/profile/${localStorage.getItem('user_id')}/`,
+        userData,
+        {
+          headers: {
+            'content-type': 'multipart/form-data',
+            Authorization: `Bearer ${localStorage.getItem('access')}`,
+          },
+        }
+      )
+      .then((res) => {
+        setUserData({});
+        setProfileData(res.data);
+      })
+      .catch((err) => console.log(err));
   };
 
-  const [profileData, setProfileData] = useState([]);
-
   useEffect(() => {
+    if (
+      localStorage.getItem('is_staff') === 'true' ||
+      localStorage.getItem('is_staff') === null
+    ) {
+      nav('/');
+    }
     axios
       .get(`${baseUrl}/users/profile/${localStorage.getItem('user_id')}/`, {
         headers: {
@@ -85,9 +64,31 @@ export default function UserProfile() {
 
   return (
     <React.Fragment>
-      <AdminHeader />
-      <AdminSideNav />
-      <div className="content-wrapper">
+      <Header />
+      <section
+        className="breadcrumb-section"
+        style={{
+          background: 'url(img/breadcrumb/classes-breadcrumb.jpg)',
+        }}
+      >
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="breadcrumb-text">
+                <h2>profile</h2>
+                <div className="breadcrumb-option">
+                  <NavLink to="/">
+                    <i className="fa fa-home"></i> Home
+                  </NavLink>
+                  <span>Profile</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="my-3">
         <section className="content-header">
           <div className="container-fluid">
             <div className="row mb-2">
@@ -190,15 +191,12 @@ export default function UserProfile() {
                           <div className="active tab-pane" id="editProfile">
                             <form className="form-horizontal">
                               <div className="form-group row">
-                                <label
-                                  htmlFor="inputName"
-                                  className="col-sm-2 col-form-label"
-                                >
+                                <label className="col-sm-2 col-form-label">
                                   Name
                                 </label>
                                 <div className="col-sm-10">
                                   <input
-                                    type="email"
+                                    type="text"
                                     className="form-control"
                                     name="name"
                                     placeholder="Name"
@@ -208,10 +206,7 @@ export default function UserProfile() {
                                 </div>
                               </div>
                               <div className="form-group row">
-                                <label
-                                  htmlFor="inputEmail"
-                                  className="col-sm-2 col-form-label"
-                                >
+                                <label className="col-sm-2 col-form-label">
                                   Age
                                 </label>
                                 <div className="col-sm-10">
@@ -226,10 +221,7 @@ export default function UserProfile() {
                                 </div>
                               </div>
                               <div className="form-group row">
-                                <label
-                                  htmlFor="inputName"
-                                  className="col-sm-2 col-form-label"
-                                >
+                                <label className="col-sm-2 col-form-label">
                                   Phone
                                 </label>
                                 <div className="col-sm-10">
@@ -244,10 +236,7 @@ export default function UserProfile() {
                                 </div>
                               </div>
                               <div className="form-group row">
-                                <label
-                                  htmlFor="inputName2"
-                                  className="col-sm-2 col-form-label"
-                                >
+                                <label className="col-sm-2 col-form-label">
                                   Height
                                 </label>
                                 <div className="col-sm-10">
@@ -263,10 +252,7 @@ export default function UserProfile() {
                                 </div>
                               </div>
                               <div className="form-group row">
-                                <label
-                                  htmlFor="inputName2"
-                                  className="col-sm-2 col-form-label"
-                                >
+                                <label className="col-sm-2 col-form-label">
                                   Weight
                                 </label>
                                 <div className="col-sm-10">
@@ -275,17 +261,14 @@ export default function UserProfile() {
                                     className="form-control"
                                     name="weight"
                                     placeholder="Weight"
-                                    defaultValue={profileData.height}
+                                    defaultValue={profileData.weight}
                                     onChange={handleChange}
                                     required
                                   />
                                 </div>
                               </div>
                               <div className="form-group row">
-                                <label
-                                  htmlFor="formFile"
-                                  className="col-sm-2 col-form-label"
-                                >
+                                <label className="col-sm-2 col-form-label">
                                   Image
                                 </label>
                                 <input
@@ -296,27 +279,19 @@ export default function UserProfile() {
                                 />
                               </div>
                               <div className="form-group row">
-                                <label
-                                  htmlFor="inputSkills"
-                                  className="col-sm-2 col-form-label"
-                                >
+                                <label className="col-sm-2 col-form-label">
                                   Gender
                                 </label>
                                 <div className="col-sm-10">
-                                  <div onchange={handleChange}>
-                                    <input
-                                      type="radio"
-                                      defaultValue="male"
-                                      name="gender"
-                                    />{' '}
-                                    Male
-                                    <input
-                                      type="radio"
-                                      defaultValue="female"
-                                      name="gender"
-                                    />{' '}
-                                    Female
-                                  </div>
+                                  <select
+                                    name="gender"
+                                    className="form-select"
+                                    onChange={handleChange}
+                                  >
+                                    <option>Select Gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                  </select>
                                 </div>
                               </div>
                             </form>
@@ -333,6 +308,7 @@ export default function UserProfile() {
                         </button>
                         <button
                           type="button"
+                          data-dismiss="modal"
                           className="btn btn-primary"
                           onClick={submitForm}
                         >
@@ -347,7 +323,7 @@ export default function UserProfile() {
           </div>
         </section>
       </div>
-      <AdminFooter />
+      <Footer />
     </React.Fragment>
   );
 }
