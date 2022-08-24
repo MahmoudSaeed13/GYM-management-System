@@ -192,21 +192,6 @@ export default function UserProfile() {
                             <form className="form-horizontal">
                               <div className="form-group row">
                                 <label className="col-sm-2 col-form-label">
-                                  Name
-                                </label>
-                                <div className="col-sm-10">
-                                  <input
-                                    type="text"
-                                    className="form-control"
-                                    name="name"
-                                    placeholder="Name"
-                                    defaultValue={profileData.user}
-                                    onChange={handleChange}
-                                  />
-                                </div>
-                              </div>
-                              <div className="form-group row">
-                                <label className="col-sm-2 col-form-label">
                                   Age
                                 </label>
                                 <div className="col-sm-10">
