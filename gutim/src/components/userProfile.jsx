@@ -200,7 +200,7 @@ export default function UserProfile() {
                                     className="form-control"
                                     name="name"
                                     placeholder="Name"
-                                    value={profileData.user}
+                                    defaultValue={profileData.user}
                                     onChange={handleChange}
                                   />
                                 </div>
@@ -215,7 +215,7 @@ export default function UserProfile() {
                                     className="form-control"
                                     name="age"
                                     placeholder="Age"
-                                    value={profileData.age}
+                                    defaultValue={profileData.age}
                                     onChange={handleChange}
                                   />
                                 </div>
@@ -230,7 +230,7 @@ export default function UserProfile() {
                                     className="form-control"
                                     name="phone"
                                     placeholder="Phone"
-                                    value={profileData.phone}
+                                    defaultValue={profileData.phone}
                                     onChange={handleChange}
                                   />
                                 </div>
