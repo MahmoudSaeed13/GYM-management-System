@@ -33,6 +33,23 @@ class ClassViewSet(ModelViewSet):
 
 class AttendantViewSet(GenericViewSet):
     serializer_class = AttendantSerializer
+    queryset = Attendant.objects.all()
+    
+    @action(
+        methods=["GET"],
+        detail=False,
+        url_path='list',
+        url_name='list-attendants',
+        permission_classes=[AllowAny],
+        throttle_classes = [AnonRateThrottle]
+    )
+    def list_attendants(self, request):
+        attendants = Attendant.objects.all()
+
+        if len(attendants) == 0:
+            return Response({'Message':'No one subscribed for any of your classes.'},status=status.HTTP_204_NO_CONTENT)
+        serializer = self.serializer_class(attendants, many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
     @action(
         methods=["POST"],

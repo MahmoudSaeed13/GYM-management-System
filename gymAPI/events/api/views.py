@@ -40,6 +40,22 @@ class EventUpdateDestroyView(generics.UpdateAPIView, generics.DestroyAPIView):
 
 class ParticipantsViewSet(GenericViewSet):
     serializer_class = ParticipantSerializer
+    queryset = Participant.objects.all()
+    @action(
+        methods=["GET"],
+        detail=False,
+        url_path='list',
+        url_name='list-participants',
+        permission_classes=[AllowAny],
+        throttle_classes = [AnonRateThrottle]
+    )
+    def list_participants(self, request):
+        participants = Participant.objects.all()
+
+        if len(participants) == 0:
+            return Response({'Message':'No one subscribed for any of you events.'},status=status.HTTP_204_NO_CONTENT)
+        serializer = self.serializer_class(participants, many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
 
     @action(
         methods=["POST"],

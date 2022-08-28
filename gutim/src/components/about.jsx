@@ -16,6 +16,7 @@ export default function About() {
     } catch (error) {
       console.log(error);
     }
+    window.scrollTo(0,0);
   }, []);
   return (
     <React.Fragment>

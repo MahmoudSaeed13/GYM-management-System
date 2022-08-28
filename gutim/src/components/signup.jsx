@@ -14,6 +14,7 @@ export default function Signup() {
     if (auth) {
       nav('/');
     }
+    window.scrollTo(0,0);
   }, []);
   const [error, setError] = useState({});
   const [state, setState] = useState({
