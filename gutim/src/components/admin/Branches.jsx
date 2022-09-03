@@ -45,7 +45,7 @@ export default function AdminBranches() {
           })
         );
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err));
   };
 
   const deleteBranch = (e, id) => {
@@ -117,17 +117,15 @@ export default function AdminBranches() {
         })
         .catch((err) => {
           console.log(err);
-          alert(err.response.data.detail);
         });
     }
   };
 
-
-  const activateCreateModal = (e) =>{
+  const activateCreateModal = (e) => {
     e.preventDefault();
-    setCreateModal(true)
-    setEditModal(false)
-  }
+    setCreateModal(true);
+    setEditModal(false);
+  };
 
   const renderCreateModal = () => {
     return (
@@ -188,7 +186,7 @@ export default function AdminBranches() {
   const activateEditModal = (e, branch) => {
     e.preventDefault();
     setEditModal(true);
-    setCreateModal(false)
+    setCreateModal(false);
     setEditBranch(branch);
   };
 
@@ -261,7 +259,6 @@ export default function AdminBranches() {
 
         .catch((err) => {
           console.log(err);
-          alert(err.response.data.detail);
         });
     }
   };
@@ -285,7 +282,7 @@ export default function AdminBranches() {
                     type="text"
                     className="form-control"
                     placeholder="Name"
-                    value={editBranch.name}
+                    defaultValue={editBranch.name}
                     onChange={getEditBranchName}
                   />
                 </div>
@@ -295,7 +292,7 @@ export default function AdminBranches() {
                     type="text"
                     className="form-control"
                     placeholder="Address"
-                    value={editBranch.address}
+                    defaultValue={editBranch.address}
                     onChange={getEditBranchAddress}
                   />
                 </div>
@@ -305,7 +302,7 @@ export default function AdminBranches() {
                     type="text"
                     className="form-control"
                     placeholder="Phone"
-                    value={editBranch.phone}
+                    defaultValue={editBranch.phone}
                     onChange={getEditBranchPhone}
                   />
                 </div>

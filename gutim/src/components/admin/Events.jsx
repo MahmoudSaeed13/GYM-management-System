@@ -52,7 +52,7 @@ export default function AdminEvents() {
           })
         );
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err));
   };
 
   const deleteEvent = (e, id) => {
@@ -172,7 +172,6 @@ export default function AdminEvents() {
         })
         .catch((err) => {
           console.log(err);
-          alert(err);
         });
     }
   };
@@ -240,7 +239,7 @@ export default function AdminEvents() {
                   <input
                     type="date"
                     className="form-control"
-                    value="2022-08-01"
+                    defaultValue="2022-08-01"
                     onChange={getNewEventStartDate}
                   />
                 </div>
@@ -249,7 +248,7 @@ export default function AdminEvents() {
                   <input
                     type="date"
                     className="form-control"
-                    value="2023-08-01"
+                    defaultValue="2023-08-01"
                     onChange={getNewEventEndDate}
                   />
                 </div>
@@ -375,7 +374,6 @@ export default function AdminEvents() {
         })
         .catch((err) => {
           console.log(err);
-          alert(err);
         });
     }
   };
@@ -399,7 +397,7 @@ export default function AdminEvents() {
                     type="text"
                     className="form-control"
                     placeholder="Name"
-                    value={editEvent.name}
+                    defaultValue={editEvent.name}
                     onChange={getEditEventName}
                   />
                 </div>
@@ -408,10 +406,9 @@ export default function AdminEvents() {
 
                   <textarea
                     className="form-control"
-                    value={editEvent.description}
+                    defaultValue={editEvent.description}
                     onChange={getEditEventDescription}
                     rows={3}
-                    defaultValue={''}
                   />
                 </div>
                 <div className="mb-3">
@@ -424,7 +421,7 @@ export default function AdminEvents() {
                     type="text"
                     className="form-control"
                     placeholder="Capacity"
-                    value={editEvent.capacity}
+                    defaultValue={editEvent.capacity}
                     onChange={getEditEventCapacity}
                   />
                 </div>
@@ -434,7 +431,7 @@ export default function AdminEvents() {
                     type="text"
                     className="form-control"
                     placeholder="Price"
-                    value={editEvent.price}
+                    defaultValue={editEvent.price}
                     onChange={getEditEventPrice}
                   />
                 </div>
@@ -443,7 +440,7 @@ export default function AdminEvents() {
                   <input
                     type="date"
                     className="form-control"
-                    value={editEvent.start_date}
+                    defaultValue={editEvent.start_date}
                     onChange={getEditEventStartDate}
                   />
                 </div>
@@ -452,7 +449,7 @@ export default function AdminEvents() {
                   <input
                     type="date"
                     className="form-control"
-                    value={editEvent.end_date}
+                    defaultValue={editEvent.end_date}
                     onChange={getEditEventEndDate}
                   />
                 </div>

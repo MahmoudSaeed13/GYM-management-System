@@ -72,7 +72,7 @@ export default function AdminTrainers() {
           })
         );
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err));
   };
 
   const deleteTrainer = (e, id) => {
@@ -221,7 +221,6 @@ export default function AdminTrainers() {
         })
         .catch((err) => {
           console.log(err);
-          alert(err);
         });
     }
   };
@@ -456,7 +455,6 @@ export default function AdminTrainers() {
         })
         .catch((err) => {
           console.log(err);
-          alert(err);
         });
     }
   };
@@ -480,7 +478,7 @@ export default function AdminTrainers() {
                     type="text"
                     className="form-control"
                     placeholder="Name"
-                    value={editTrainer.name}
+                    defaultValue={editTrainer.name}
                     onChange={getEditTrainerName}
                   />
                 </div>
@@ -488,7 +486,7 @@ export default function AdminTrainers() {
                   <label className="form-label">Age</label>
                   <input
                     type="text"
-                    value={editTrainer.age}
+                    defaultValue={editTrainer.age}
                     onChange={getEditTrainerAge}
                     className="form-control"
                     placeholder="Age"
@@ -516,7 +514,7 @@ export default function AdminTrainers() {
                     type="text"
                     className="form-control"
                     placeholder="Phone"
-                    value={editTrainer.phone}
+                    defaultValue={editTrainer.phone}
                     onChange={getEditTrainerPhone}
                   />
                 </div>
@@ -526,7 +524,7 @@ export default function AdminTrainers() {
                     type="number"
                     className="form-control"
                     placeholder="Experience"
-                    value={editTrainer.experience}
+                    defaultValue={editTrainer.experience}
                     onChange={getEditTrainerExperience}
                   />
                 </div>
