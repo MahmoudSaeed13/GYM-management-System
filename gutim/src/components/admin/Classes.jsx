@@ -35,7 +35,7 @@ export default function AdminClasses() {
 
   const deleteItem = (id) => {
     axios
-      .delete(`http://localhost:8000/api/events/modify/${id}`, {
+      .delete(`http://localhost:8000/api/classes/${id}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
